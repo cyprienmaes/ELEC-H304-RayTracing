@@ -22,13 +22,16 @@ Creation of different kinds of wall for reflexion and refraction.
     float conductivity;
     float permeability;
     char vertical;
-    // Position of the top right corner of a rectangle.
+    int epaisseur;
+    int largeur;
+    // Position of the top left corner of a rectangle.
     SDL_Rect position;
-    //
     SDL_Surface *newWall;
 };
 
 void StayDisplay();
+
+void createWall(float conductivity, float permeability, char vertical, int epaisseur, int largeur, int posX, int posY, SDL_Surface *screen, WALL *mur);
 
 WALL *SquareMap(SDL_Surface *screen, WALL *wall);
 
