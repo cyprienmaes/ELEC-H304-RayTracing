@@ -10,6 +10,8 @@
 #include "TXandRX.h"
 #include "point.h"
 
+//////////////////////////////////////////
+
 int main(int argc, char *argv[]) {
     WALL* wall = NULL;
     TRANSMITTER *transmitter = NULL;
