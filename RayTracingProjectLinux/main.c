@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 #include "videoInitialisation.h"
 #include "line.h"
 #include "reflection.h"
@@ -39,6 +40,14 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Impossible de charger le mode video : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }
+    // Initialisation de la librairie TTF qui permet d'ecrire dans une fenetre SDL.
+    TTF_Init();
+
+    if(TTF_Init() == -1) {
+        // Si jamais une erreur d'initialisation devait arriver.
+        fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
+        exit(EXIT_FAILURE);
+    }
 
     // Saving of a color in the memory. Using of RGB map (256 colors).
     // Format is an under-variale of screen and give the color displaying which is the most
@@ -55,6 +64,7 @@ int main(int argc, char *argv[]) {
     receiver = newReceiver(320, 250, receiver, screen);
     // doubleReflection(receiver, transmitter, wall, screen);
     methodImage(transmitter->position.x+5, transmitter->position.y+5, receiver->position.x+5, receiver->position.y+5, wall, screen, 2);
+
     // Update of the frame
     SDL_Flip(screen);
 
@@ -63,6 +73,8 @@ int main(int argc, char *argv[]) {
     // Deleting surface inside de memory
     freeWALL(wall);
 
+    // Arret de la librairie TTF
+    TTF_Quit();
     // Stoping of SDL
     SDL_Quit();
     return EXIT_SUCCESS;
@@ -78,9 +90,24 @@ void createRectangle(int posX, int posY, int largeur, int hauteur, char R, char 
     SDL_BlitSurface(newRect, NULL, screen, &position);
     }
 
+void createText(const char* file, int taillePolice, int posX, int posY, const char* ecrit, SDL_Surface *screen) {
+    TTF_Font *police = NULL;
+    SDL_Surface *texte = NULL;
+    SDL_Rect positionTexte;
+    police = TTF_OpenFont(file, taillePolice);
+    SDL_Color noir = {0,0,0};
+    texte = TTF_RenderUTF8_Blended(police, ecrit, noir);
+    positionTexte.x = posX;
+    positionTexte.y = posY;
+    SDL_BlitSurface(texte,NULL,screen,&positionTexte);
+}
+
 void createMenu(int largeurMenu, int hauteurMenu, int hauteurEcran, SDL_Surface *screen) {
     createRectangle(0,hauteurEcran,largeurMenu, hauteurMenu, 200, 200, 200, screen);
     createRectangle(largeurMenu/2-300, hauteurEcran+hauteurMenu/2-10, 100, 20,255,255,255,screen);
     createRectangle(largeurMenu/2-50, hauteurEcran+hauteurMenu/2-10, 100, 20,255,255,255,screen);
     createRectangle(largeurMenu/2+200, hauteurEcran+hauteurMenu/2-10, 100, 20,255,255,255,screen);
+    createText("GeosansLight.ttf", 16, largeurMenu/2-300, hauteurEcran+hauteurMenu/2-30, "Paramètres : ", screen);
+    createText("GeosansLight.ttf", 16, largeurMenu/2-50, hauteurEcran+hauteurMenu/2-30, "Position en x : ", screen);
+    createText("GeosansLight.ttf", 16, largeurMenu/2+200, hauteurEcran+hauteurMenu/2-30, "Position en y : ", screen);
 }
