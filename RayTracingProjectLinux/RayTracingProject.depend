@@ -129,13 +129,14 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1524212731 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/main.c
+1524233483 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<unistd.h>
 	<math.h>
 	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
 	"videoInitialisation.h"
 	"line.h"
 	"reflection.h"
