@@ -31,8 +31,8 @@ Creation of different kinds of wall for reflexion and refraction.
 
 void StayDisplay();
 
-void createWall(float conductivity, float permeability, char vertical, int epaisseur, int largeur, int posX, int posY, SDL_Surface *screen, WALL *mur);
+void createWall(float conductivity, float permeability, char vertical, int epaisseur, int largeur, int hauteur, int posX, int posY, SDL_Surface *screen, WALL *mur);
 
-WALL *SquareMap(SDL_Surface *screen, WALL *wall);
+WALL *SquareMap(SDL_Surface *screen, WALL *wall, int largeurEcran, int hauteurEcran);
 
 void freeWALL(WALL *wall);

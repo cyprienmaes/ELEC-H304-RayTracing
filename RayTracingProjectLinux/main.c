@@ -11,6 +11,12 @@
 #include "point.h"
 
 int main(int argc, char *argv[]) {
+
+    int hauteurEcran = 500;
+    int largeurEcran = 800;
+    int hauteurMenu = 100;
+    int largeurMenu = 800;
+
     WALL* wall = NULL;
     TRANSMITTER *transmitter = NULL;
     RECEIVER *receiver = NULL;
@@ -27,7 +33,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     // Video mode (resolution => 600x600 for example, color displaying, other parameters according to the memory)
-    screen = SDL_SetVideoMode(600, 600, 32, SDL_SWSURFACE);
+    screen = SDL_SetVideoMode(largeurEcran, hauteurEcran+hauteurMenu, 32, SDL_SWSURFACE);
 
     if (screen == NULL) {
         fprintf(stderr, "Impossible de charger le mode video : %s\n", SDL_GetError());
@@ -41,12 +47,12 @@ int main(int argc, char *argv[]) {
     // Filling of the rectangle
     SDL_FillRect(screen, NULL, white);
     // Title of the main frame
-    SDL_WM_SetCaption("Projet de Ray-Tracing v0.0.3", NULL);
+    SDL_WM_SetCaption("Projet de Ray-Tracing v0.1.0", NULL);
 
-    wall = SquareMap(screen, wall);
-
-    transmitter = newTransmitter(20,500,transmitter,screen);
-    receiver = newReceiver(500, 250, receiver, screen);
+    wall = SquareMap(screen,wall,largeurEcran,hauteurEcran);
+    createMenu(largeurMenu, hauteurMenu, hauteurEcran, screen);
+    transmitter = newTransmitter(20,320,transmitter,screen);
+    receiver = newReceiver(320, 250, receiver, screen);
     // doubleReflection(receiver, transmitter, wall, screen);
     methodImage(transmitter->position.x+5, transmitter->position.y+5, receiver->position.x+5, receiver->position.y+5, wall, screen, 2);
     // Update of the frame
@@ -60,4 +66,21 @@ int main(int argc, char *argv[]) {
     // Stoping of SDL
     SDL_Quit();
     return EXIT_SUCCESS;
+}
+
+void createRectangle(int posX, int posY, int largeur, int hauteur, char R, char G, char B, SDL_Surface *screen) {
+    SDL_Rect position;
+    SDL_Surface *newRect;
+    position.x = posX;
+    position.y = posY;
+    newRect = SDL_CreateRGBSurface(SDL_SWSURFACE, largeur, hauteur, 32, 0, 0, 0, 0);
+    SDL_FillRect(newRect, NULL, SDL_MapRGB(screen->format, R, G, B));
+    SDL_BlitSurface(newRect, NULL, screen, &position);
+    }
+
+void createMenu(int largeurMenu, int hauteurMenu, int hauteurEcran, SDL_Surface *screen) {
+    createRectangle(0,hauteurEcran,largeurMenu, hauteurMenu, 200, 200, 200, screen);
+    createRectangle(largeurMenu/2-300, hauteurEcran+hauteurMenu/2-10, 100, 20,255,255,255,screen);
+    createRectangle(largeurMenu/2-50, hauteurEcran+hauteurMenu/2-10, 100, 20,255,255,255,screen);
+    createRectangle(largeurMenu/2+200, hauteurEcran+hauteurMenu/2-10, 100, 20,255,255,255,screen);
 }
