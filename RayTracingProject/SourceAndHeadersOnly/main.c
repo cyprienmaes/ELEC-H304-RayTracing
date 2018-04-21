@@ -53,6 +53,7 @@ int main(int argc, char *argv[]) {
     //methodImage(transmitter->position.x+5, transmitter->position.y+5, receiver->position.x+5, receiver->position.y+5, wall, screen, 2);
 
 
+    // EXEMPLE D'UTILISATION DE INTERSECTION
     DROITE droite1; DROITE droite2;
     POINT croisement;
 
@@ -65,7 +66,7 @@ int main(int argc, char *argv[]) {
     line(droite2.x0, droite2.y0, droite2.x1, droite2.y1, SDL_MapRGB(screen->format,100,0,255), screen);
 
     croisement = intersection(droite1, droite2);
-    transmitter = newTransmitter(croisement.x, croisement.y, transmitter, screen);
+    transmitter = newTransmitter(croisement.x, croisement.y, transmitter, screen); // Juste pour avoir un visuel sur l'intersection
 
 
 
