@@ -129,7 +129,7 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1524306529 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/main.c
+1524318758 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -137,11 +137,13 @@
 	<math.h>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
-	"videoInitialisation.h"
 	"line.h"
 	"reflection.h"
 	"TXandRX.h"
 	"point.h"
+	"menu.h"
+	"evenement.h"
+	"intersection.h"
 
 1523370119 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/videoInitialisation.h
 	<stdio.h>
@@ -169,7 +171,7 @@
 	"line.h"
 	"wall.h"
 
-1524212353 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/wall.h
+1524318950 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/wall.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -211,7 +213,7 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1524212312 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/wall.c
+1524319027 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/wall.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -219,13 +221,14 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1524084614 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/point.h
+1524318967 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/point.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<unistd.h>
 	<math.h>
 	<SDL/SDL.h>
+	"wall.h"
 
 1524084614 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/point.c
 	<stdio.h>
@@ -236,7 +239,7 @@
 	<SDL/SDL.h>
 	"wall.h"
 
-1524314514 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/menu.c
+1524317856 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/menu.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -245,7 +248,7 @@
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
 
-1524314707 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/evenement.c
+1524317856 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/evenement.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -255,7 +258,7 @@
 	<SDL/SDL_ttf.h>
 	"menu.h"
 
-1524314594 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/menu.h
+1524317856 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/menu.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -263,4 +266,31 @@
 	<math.h>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
+
+1524318222 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/intersection.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"point.h"
+
+1524317856 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/evenement.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+
+1524318347 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/intersection.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"point.h"
 

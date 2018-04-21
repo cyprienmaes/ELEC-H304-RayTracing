@@ -58,10 +58,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="reflection.h" />
-		<Unit filename="videoInitialisation.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="videoInitialisation.h" />
 		<Unit filename="wall.c">
 			<Option compilerVar="CC" />
 		</Unit>

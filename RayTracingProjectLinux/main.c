@@ -5,13 +5,13 @@
 #include <math.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
-#include "videoInitialisation.h"
 #include "line.h"
 #include "reflection.h"
 #include "TXandRX.h"
 #include "point.h"
 #include "menu.h"
 #include "evenement.h"
+#include "intersection.h"
 
 
 int main(int argc, char *argv[]) {

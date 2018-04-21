@@ -23,22 +23,6 @@ Creation of different kinds of wall for reflexion and refraction.
     SDL_Surface *newWall;
 };
 
-void StayDisplay() {
-/*
-Function which wait the event of exit screen. It's better than a while(1).
-*/
-    int continu = 1;
-    SDL_Event event;
-
-    while (continu){
-        SDL_WaitEvent(&event);
-        switch(event.type) {
-            case SDL_QUIT :
-                continu = 0;
-        }
-    }
-}
-
 void createWall(float conductivity, float permeability, char vertical, int epaisseur, int largeur, int hauteur, int posX, int posY, SDL_Surface *screen, WALL *mur) {
 /* Création d'un mur suivant les propriétés misent en paramètres :
    - verticale : 1 si oui 0 si non
