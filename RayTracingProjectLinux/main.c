@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     // Video mode (resolution => 600x600 for example, color displaying, other parameters according to the memory)
-    screen = SDL_SetVideoMode(largeurEcran, hauteurEcran+hauteurMenu, 32, SDL_SWSURFACE);
+    screen = SDL_SetVideoMode(largeurEcran, hauteurEcran+hauteurMenu, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
 
     if (screen == NULL) {
         fprintf(stderr, "Impossible de charger le mode video : %s\n", SDL_GetError());
@@ -55,20 +55,21 @@ int main(int argc, char *argv[]) {
     // of the time 32 bits.
     Uint32 white = SDL_MapRGB(screen->format, 255, 255, 255);
     // Filling of the rectangle
-    SDL_FillRect(screen, NULL, white);
+    SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,255,255,255));
     // Title of the main frame
     SDL_WM_SetCaption("Projet de Ray-Tracing v0.1.0", NULL);
-
     wall = SquareMap(screen,wall,largeurEcran,hauteurEcran);
     transmitter = newTransmitter(20,320,transmitter,screen);
     receiver = newReceiver(320, 250, receiver, screen);
     // doubleReflection(receiver, transmitter, wall, screen);
     methodImage(transmitter->position.x+5, transmitter->position.y+5, receiver->position.x+5, receiver->position.y+5, wall, screen, 2);
+    createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,screen);
     SDL_Flip(screen);
-    createMenu("GeosansLight.ttf",16,largeurMenu, hauteurMenu, hauteurEcran, screen);
+    //createMenu("GeosansLight.ttf",16,largeurMenu, hauteurMenu, hauteurEcran, screen);
+    posSouris("GeosansLight.ttf",16,largeurMenu/2-50, hauteurEcran+hauteurMenu/2-10, largeurMenu/2+200, hauteurEcran+hauteurMenu/2-10,screen);
     // Deleting surface inside de memory
     freeWALL(wall);
-
+    SDL_Flip(screen);
     // Arret de la librairie TTF
     //TTF_CloseFont(police);
     TTF_Quit();
@@ -98,18 +99,18 @@ void createText(const char* file, int taillePolice, int posX, int posY, const ch
 */
     TTF_Font *font = NULL;
     font = TTF_OpenFont(file, taillePolice);
-
-    SDL_Surface *texte = NULL;
+    SDL_Surface *texte =NULL;
     SDL_Rect positionTexte;
     SDL_Color noir = {0,0,0};
     SDL_Color blanc = {255,255,255};
-    texte = TTF_RenderUTF8_Shaded(font, ecrit, noir, blanc);
+    texte = TTF_RenderUTF8_Blended(font, ecrit, noir);
     positionTexte.x = posX;
     positionTexte.y = posY;
     SDL_BlitSurface(texte,NULL,screen,&positionTexte);
     TTF_CloseFont(font);
     SDL_FreeSurface(texte);
 }
+
 
 void createMenu(const char* file, int taillePolice, int largeurMenu, int hauteurMenu, int hauteurEcran, SDL_Surface *screen) {
 /*
@@ -122,7 +123,6 @@ void createMenu(const char* file, int taillePolice, int largeurMenu, int hauteur
     createText(file, taillePolice, largeurMenu/2-300, hauteurEcran+hauteurMenu/2-30, "Paramètres : ", screen);
     createText(file, taillePolice, largeurMenu/2-50, hauteurEcran+hauteurMenu/2-30, "Position en x : ", screen);
     createText(file, taillePolice,largeurMenu/2+200, hauteurEcran+hauteurMenu/2-30, "Position en y : ", screen);
-    posSouris(file, taillePolice, largeurMenu/2-50, hauteurEcran+hauteurMenu/2-10, largeurMenu/2+200, hauteurEcran+hauteurMenu/2-10, screen);
 }
 
 void posSouris(const char* file, int taillePolice,int posXx, int posYx, int posXy, int posYy, SDL_Surface *screen) {
@@ -146,7 +146,10 @@ void posSouris(const char* file, int taillePolice,int posXx, int posYx, int posX
                 continuer = 0;
                 break;
         }
-        //SDL_UpdateRect(screen, 0, 500, 800, 100);
-        SDL_Flip(screen);
+        SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,255,255,255));
+        createText(file, taillePolice, posXx, posYx, posx, screen);
+        createText(file, taillePolice, posXy, posYy, posy, screen);
+        SDL_UpdateRect(screen, posXx, posYx, 100, 20);
+        SDL_UpdateRect(screen, posXy, posYy, 100, 20);
     }
 }
