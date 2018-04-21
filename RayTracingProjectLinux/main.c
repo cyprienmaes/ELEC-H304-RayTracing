@@ -13,13 +13,12 @@
 #include "evenement.h"
 #include "intersection.h"
 
-
 int main(int argc, char *argv[]) {
 
-    int hauteurEcran = 500;
-    int largeurEcran = 800;
+    int hauteurEcran = 800; // en cm
+    int largeurEcran = 1120; // en cm
     int hauteurMenu = 100;
-    int largeurMenu = 800;
+    int largeurMenu = 1120;
 
     WALL* wall = NULL;
     TRANSMITTER *transmitter = NULL;
@@ -37,7 +36,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     // Video mode (resolution => 600x600 for example, color displaying, other parameters according to the memory)
-    screen = SDL_SetVideoMode(largeurEcran, hauteurEcran+hauteurMenu, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
+    screen = SDL_SetVideoMode((largeurEcran/2), (hauteurEcran+hauteurMenu)/2, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
 
     if (screen == NULL) {
         fprintf(stderr, "Impossible de charger le mode video : %s\n", SDL_GetError());
@@ -57,17 +56,17 @@ int main(int argc, char *argv[]) {
     // Title of the main frame
     SDL_WM_SetCaption("Projet de Ray-Tracing v0.1.0", NULL);
     // Creation de la map
-    wall = SquareMap(screen,wall,largeurEcran,hauteurEcran);
+    wall = MapUn(screen,wall,largeurEcran,hauteurEcran);
     // Creation de l'emetteur et du recepteur.
     transmitter = newTransmitter(20,320,transmitter,screen);
     receiver = newReceiver(320, 250, receiver, screen);
     // Methode image obolete mais juste pour voir
     methodImage(transmitter->position.x+5, transmitter->position.y+5, receiver->position.x+5, receiver->position.y+5, wall, screen, 2);
     // Creation d'un menu ou s'affiche certaines donnees
-    createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,screen);
+    //createMenu("GeosansLight.ttf",16,largeurMenu/2,hauteurMenu/2,hauteurEcran/2,screen);
     SDL_Flip(screen);
     // Gestion d'evenement avec la souris.
-    posSouris("GeosansLight.ttf",16,largeurMenu/2-50, hauteurEcran+hauteurMenu/2-10, largeurMenu/2+200, hauteurEcran+hauteurMenu/2-10,screen);
+    posSouris("GeosansLight.ttf",16,(largeurMenu/2)/2-50, ((hauteurEcran+hauteurMenu)/2)/2-10, (largeurMenu/2)/2+200, ((hauteurEcran+hauteurMenu)/2)/2-10,screen);
     // Deleting surface inside de memory
     freeWALL(wall);
     SDL_Flip(screen);

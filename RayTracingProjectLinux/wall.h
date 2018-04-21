@@ -14,7 +14,7 @@ struct WALL{
 Creation of different kinds of wall for reflexion and refraction.
 */
     float conductivity;
-    float permeability;
+    float permitivity;
     char vertical;
     int epaisseur;
     int largeur;
@@ -25,7 +25,7 @@ Creation of different kinds of wall for reflexion and refraction.
 
 typedef struct WALL WALL;
 
-void createWall(float conductivity, float permeability, char vertical, int epaisseur, int largeur, int hauteur, int posX, int posY, SDL_Surface *screen, WALL *mur);
+void createWall(float conductivity, float permitivity, char vertical, int epaisseur, int largeur, int hauteur, int posX, int posY, SDL_Surface *screen, WALL *mur);
 
 WALL *SquareMap(SDL_Surface *screen, WALL *wall, int largeurEcran, int hauteurEcran);
 
