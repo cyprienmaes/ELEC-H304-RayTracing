@@ -8,7 +8,7 @@
 #include "line.h"
 #include "reflection.h"
 #include "TXandRX.h"
-#include "point.h"
+#include "intersection.h"
 
 //////////////////////////////////////////
 
@@ -50,7 +50,25 @@ int main(int argc, char *argv[]) {
     transmitter = newTransmitter(20,500,transmitter,screen);
     receiver = newReceiver(500, 250, receiver, screen);
     // doubleReflection(receiver, transmitter, wall, screen);
-    methodImage(transmitter->position.x+5, transmitter->position.y+5, receiver->position.x+5, receiver->position.y+5, wall, screen, 2);
+    //methodImage(transmitter->position.x+5, transmitter->position.y+5, receiver->position.x+5, receiver->position.y+5, wall, screen, 2);
+
+
+    DROITE droite1; DROITE droite2;
+    POINT croisement;
+
+    droite1.x0 = 0; droite1.y0 = 2,35;
+    droite1.x1 = 4; droite1.y1 = 12.47;
+    line(droite1.x0, droite1.y0, droite1.x1, droite1.y1, SDL_MapRGB(screen->format,0,100,255), screen);
+
+    droite2.x0 = 0; droite2.y0 = -3.41;
+    droite2.x1 = 10; droite2.y1 = 48.89;
+    line(droite2.x0, droite2.y0, droite2.x1, droite2.y1, SDL_MapRGB(screen->format,100,0,255), screen);
+
+    croisement = intersection(droite1, droite2);
+    transmitter = newTransmitter(croisement.x, croisement.y, transmitter, screen);
+
+
+
     // Update of the frame
     SDL_Flip(screen);
 

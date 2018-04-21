@@ -10,15 +10,15 @@ typedef struct POINT POINT;
 
 struct POINT {
     /* Donne les coordonnées d'un point */
-    int x;
-    int y;
+    float x;
+    float y;
 };
 
 void pointImage(POINT *pointImage, POINT copier, POINT comparer, WALL wall) {
 /* change la valeur d'un point image au point à copier selon un point à comparer et le sens du mur.
    Attention pointImage est un pointeur, il attend donc une adresse, ne pas oublier de mettre &.
 */
-    int dx, dy;
+    float dx, dy;
     char sens;
     // distances du point copier au point comparer
     dx = comparer.x-copier.x;

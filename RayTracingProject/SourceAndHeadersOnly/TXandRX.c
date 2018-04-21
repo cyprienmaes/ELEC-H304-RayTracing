@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <SDL/SDL.h>
+
 typedef struct TRANSMITTER TRANSMITTER;
 typedef struct RECEIVER RECEIVER;
 
