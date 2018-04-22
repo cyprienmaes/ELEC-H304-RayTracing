@@ -8,10 +8,6 @@
 #ifndef TXANDRX_H_INCLUDED
 #define TXANDRX_H_INCLUDED
 
-
-
-#endif // TXANDRX_H_INCLUDED
-
 typedef struct TRANSMITTER TRANSMITTER;
 typedef struct RECEIVER RECEIVER;
 
@@ -28,4 +24,8 @@ struct RECEIVER{
 TRANSMITTER *newTransmitter(int xTX, int yTX, TRANSMITTER *transmitter, SDL_Surface *screen);
 
 RECEIVER *newReceiver(int xRX, int yRX, RECEIVER *receiver, SDL_Surface *screen);
+
+
+#endif // TXANDRX_H_INCLUDED
+
 

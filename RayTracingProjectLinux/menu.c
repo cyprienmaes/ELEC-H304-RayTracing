@@ -5,6 +5,7 @@
 #include <math.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
+#include "wall.h"
 
 void createRectangle(int posX, int posY, int largeur, int hauteur, char R, char G, char B, SDL_Surface *screen) {
 /*
@@ -50,13 +51,13 @@ void createMenu(const char* file, int taillePolice, int largeurMenu, int hauteur
     Creation d'un menu dans le bas de la fenetre.
 */
     // Rectangle gris principale.
-    createRectangle(0,hauteurEcran,largeurMenu, hauteurMenu, 200, 200, 200, screen);
+    createRectangle(0,hauteurEcran/scaling,largeurMenu/scaling , hauteurMenu, 200, 200, 200, screen);
     // Rectangle blanc pouvant afficher des donnees
-    createRectangle(largeurMenu/2-300, hauteurEcran+hauteurMenu/2-10, 100, 20,255,255,255,screen);
-    createRectangle(largeurMenu/2-50, hauteurEcran+hauteurMenu/2-10, 100, 20,255,255,255,screen);
-    createRectangle(largeurMenu/2+200, hauteurEcran+hauteurMenu/2-10, 100, 20,255,255,255,screen);
+    createRectangle((largeurMenu/(2*scaling))-(500/scaling), (hauteurEcran/scaling)+(hauteurMenu/2)-10, 100, 20,255,255,255,screen);
+    createRectangle((largeurMenu/(2*scaling))-50, (hauteurEcran/scaling)+(hauteurMenu/2)-10, 100, 20,255,255,255,screen);
+    createRectangle((largeurMenu/(2*scaling))+(300/scaling), (hauteurEcran/scaling)+(hauteurMenu/2)-10, 100, 20,255,255,255,screen);
     // Texte au-dessus du rectangle.
-    createText(file, taillePolice, largeurMenu/2-300, hauteurEcran+hauteurMenu/2-30, "Paramètres : ", screen);
-    createText(file, taillePolice, largeurMenu/2-50, hauteurEcran+hauteurMenu/2-30, "Position en x : ", screen);
-    createText(file, taillePolice,largeurMenu/2+200, hauteurEcran+hauteurMenu/2-30, "Position en y : ", screen);
+    createText(file, taillePolice, (largeurMenu/(2*scaling))-(500/scaling), (hauteurEcran/scaling)+(hauteurMenu/2)-30, "Paramètres : ", screen);
+    createText(file, taillePolice, (largeurMenu/(2*scaling))-50, (hauteurEcran/scaling)+(hauteurMenu/2)-30, "Position en x : ", screen);
+    createText(file, taillePolice, (largeurMenu/(2*scaling))+(300/scaling), (hauteurEcran/scaling)+(hauteurMenu/2)-30, "Position en y : ", screen);
 }
