@@ -39,6 +39,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="evenement.h" />
+		<Unit filename="intersection.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="intersection.h" />
 		<Unit filename="line.c">
 			<Option compilerVar="CC" />
 		</Unit>

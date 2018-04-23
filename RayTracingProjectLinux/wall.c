@@ -5,7 +5,7 @@
 #include <math.h>
 #include <SDL/SDL.h>
 
-#define scaling 1.5
+#define scaling 1
 
 int numberWall;
 
