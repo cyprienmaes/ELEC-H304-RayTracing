@@ -6,6 +6,8 @@
 #include <SDL/SDL.h>
 #include "line.h"
 #include "wall.h"
+#include "point.h"
+#include "intersection.h"
 
 void methodImage(int xTX, int yTX, int xRX, int yRX, WALL *wall, SDL_Surface *screen, int flag) {
     if (flag >0){
@@ -70,4 +72,18 @@ void methodImage(int xTX, int yTX, int xRX, int yRX, WALL *wall, SDL_Surface *sc
             }
         }
     }
+}
+
+void emission(float xSource, float ySource, WALL *wall, SDL_Surface *screen){
+    POINT point;    point.x = (wall[6].position.x);     point.y = wall[6].position.y+100;
+    POINT source;   source.x = xSource;     source.y = ySource;
+
+    DROITE droite1; droite1.x0 = xSource; droite1.y0 = ySource; droite1.x1 = point.x; droite1.y1 = point.y;
+
+    POINT intersect = intersection(droite1, wall[6].droite);
+
+    line(source.x, source.y, intersect.x, intersect.y, SDL_MapRGB(screen->format,255,0,100), screen);
+
+    POINT newSource = pointImage(source, intersect, wall[6]);
+    line(newSource.x, newSource.y, intersect.x, intersect.y, SDL_MapRGB(screen->format,255,0,100), screen);
 }

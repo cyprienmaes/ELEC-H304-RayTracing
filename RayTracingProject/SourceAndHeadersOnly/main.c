@@ -62,6 +62,12 @@ int main(int argc, char *argv[]) {
     receiver = newReceiver(320, 250, receiver, screen);
     // Methode image obolete mais juste pour voir
     // methodImage(transmitter->position.x+5, transmitter->position.y+5, receiver->position.x+5, receiver->position.y+5, wall, screen, 2);
+
+    emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
+
+
+
+
     // Creation d'un menu ou s'affiche certaines donnees
     createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,screen);
     SDL_Flip(screen);

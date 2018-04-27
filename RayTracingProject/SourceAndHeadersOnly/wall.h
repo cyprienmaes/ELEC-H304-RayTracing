@@ -11,6 +11,13 @@
 #define WALL_H_INCLUDED
 int numberWall;
 
+struct DROITE{
+    // equation de droite y = mx + b
+    float x0, y0, x1, y1;
+};
+
+typedef struct DROITE DROITE;
+
 struct WALL{
 /*
 Creation of different kinds of wall for reflexion and refraction.
@@ -20,6 +27,7 @@ Creation of different kinds of wall for reflexion and refraction.
     char vertical;
     int epaisseur;
     int largeur;
+    DROITE droite;
     // Position of the top left corner of a rectangle.
     SDL_Rect position;
     SDL_Surface *newWall;

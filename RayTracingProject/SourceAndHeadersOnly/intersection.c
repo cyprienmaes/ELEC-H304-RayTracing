@@ -6,13 +6,6 @@
 #include <SDL/SDL.h>
 #include "point.h" // Pour avoir structure POINT
 
-typedef struct DROITE DROITE;
-
-struct DROITE{
-    // equation de droite y = mx + b
-    float x0, y0, x1, y1;
-};
-
 POINT intersection(DROITE droite1, DROITE droite2){
     POINT intersect;
 

@@ -9,8 +9,14 @@
 
 int numberWall;
 
-typedef struct WALL WALL;
+typedef struct DROITE DROITE;
+struct DROITE{
+    // equation de droite y = mx + b
+    float x0, y0, x1, y1;
+};
 
+
+typedef struct WALL WALL;
 struct WALL{
 /*
 Creation of different kinds of wall for reflexion and refraction.
@@ -20,6 +26,7 @@ Creation of different kinds of wall for reflexion and refraction.
     char vertical;
     int epaisseur;
     int largeur;
+    DROITE droite;
     // Position of the top left corner of a rectangle.
     SDL_Rect position;
     SDL_Surface *newWall;
@@ -32,6 +39,8 @@ void createWall(char type, char vertical, int epaisseur, int largeur, int hauteu
    - screen : fenêtre dans laquelle s'affiche le mur
 */
     mur->vertical = vertical;
+    if(vertical){ mur->droite.x0 = posX; mur->droite.y0 = posY; mur->droite.x1 = posX; mur->droite.y1 = (posY+100);}
+    else {        mur->droite.x0 = posX; mur->droite.y0 = posY; mur->droite.x1 = (posX+100); mur->droite.y1 = posY;}
     // Attention l'epaisseur n'est pas celle affichee a l'ecran. C'est juste pour le calcul de puissance.
     mur->epaisseur = epaisseur;
     mur->largeur = largeur;
