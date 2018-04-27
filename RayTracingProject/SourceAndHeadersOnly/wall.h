@@ -5,22 +5,18 @@
 #include <math.h>
 #include <SDL/SDL.h>
 
+#define scaling 1
+
 #ifndef WALL_H_INCLUDED
 #define WALL_H_INCLUDED
-
-
-
-#endif // WALL_H_INCLUDED
 int numberWall;
-
-typedef struct WALL WALL;
 
 struct WALL{
 /*
 Creation of different kinds of wall for reflexion and refraction.
 */
     float conductivity;
-    float permeability;
+    float permitivity;
     char vertical;
     int epaisseur;
     int largeur;
@@ -29,10 +25,15 @@ Creation of different kinds of wall for reflexion and refraction.
     SDL_Surface *newWall;
 };
 
-void StayDisplay();
+typedef struct WALL WALL;
 
-void createWall(float conductivity, float permeability, char vertical, int epaisseur, int largeur, int posX, int posY, SDL_Surface *screen, WALL *mur);
+void createWall(char type, char vertical, int epaisseur, int largeur, int hauteur, int posX, int posY, SDL_Surface *screen, WALL *mur);
 
-WALL *SquareMap(SDL_Surface *screen, WALL *wall);
+WALL *SquareMap(SDL_Surface *screen, WALL *wall, int largeurEcran, int hauteurEcran);
+
+WALL *MapUn(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
 
 void freeWALL(WALL *wall);
+
+
+#endif // WALL_H_INCLUDED

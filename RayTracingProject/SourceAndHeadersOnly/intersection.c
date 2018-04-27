@@ -7,6 +7,7 @@
 #include "point.h" // Pour avoir structure POINT
 
 typedef struct DROITE DROITE;
+
 struct DROITE{
     // equation de droite y = mx + b
     float x0, y0, x1, y1;
