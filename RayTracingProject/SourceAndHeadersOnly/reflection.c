@@ -74,107 +74,85 @@ void methodImage(int xTX, int yTX, int xRX, int yRX, WALL *wall, SDL_Surface *sc
     }
 }
 
+POINT reflection(POINT point0, POINT point1, int* indice_self, WALL* wall, SDL_Surface *screen){
+    // Algorithme pour effectuer une reflection.
+    // - point0 : est le point image d'une source, ou le transmitter lui-même pour le premier envoi.
+    // - point1 : est la 'nouvelle source', point d'intersection avec le mur précédant
+    // - indice_self : est l'indice du mur de la 'nouvelle source' que l'on va rentrer en condition pou ne pas analyser le mur
+    //                 sur le lequel on réfléchi
+    // - RETOURNE : le point la prochaine reflexion
+
+    //On crée une droite passant par point0 et point1
+    DROITE droite; droite.x0 = point0.x; droite.y0 = point0.y; droite.x1 = point1.x; droite.y1 = point1.y;
+    POINT intersect;
+
+    float vx = (droite.x1 - droite.x0); // composante x du vecteur directeur de la droite allant dans le sens de la reflection (on aurait bien pu le faire avec vy...)
+    float distance=0; //Important car sinon l'opération distance==0 retourne faux...
+    int j, i=0; // i utilisé dans le 'for', et j indice de l'intersecion de distance minimum depuis le mur indice_self
+    float x, y, dx, dy,xMur,yMur,longueur;
+    char enVue;
+
+    for(i; (i<numberWall) ; i++){
+        if ( i!= *indice_self ){ // On saute l'indice du mur sur lequel il y a reflexion
+
+            intersect = intersection(droite, wall[i].droite);
+            x = intersect.x;         y = intersect.y;
+            dx = (x - point1.x);        dy = (y - point1.y);
+            enVue = (dx/vx) > 0; // Résolution de l'équation lambda > 0, où x1 = x0 + lambda*vx
+                                 // Ceci permet de voir dans la bonne direction par rapport à l'intersection
+            xMur = wall[i].position.x;
+            yMur = wall[i].position.y;
+            longueur = wall[i].longueur;
+
+            if( enVue && y>yMur && y<(yMur+longueur) ){
+                if(distance == 0){
+                    distance = sqrt((dx*dx) + (dy*dy));
+                    j = i;
+                }
+                else if( sqrt((dx*dx) + (dy*dy)) < distance){
+                    distance = sqrt((dx*dx) + (dy*dy));
+                    j = i;
+                }
+            }
+
+            else if( enVue && x>xMur && x<(xMur+longueur)){
+                if(distance == 0){
+                    distance = sqrt((dx*dx) + (dy*dy));
+                    j = i;
+                }
+                else if( sqrt((dx*dx) + (dy*dy)) < distance){
+                    distance = sqrt((dx*dx) + (dy*dy));
+                    j = i;
+                }
+            }
+        }
+    }
+
+    intersect = intersection(droite, wall[j].droite);
+    *indice_self = j;
+    line(point1.x, point1.y, intersect.x, intersect.y, SDL_MapRGB(screen->format,255,0,100), screen);
+
+    return intersect;
+}
+
+
 void emission(float xSource, float ySource, WALL *wall, SDL_Surface *screen){
+    int* indice_self;
     POINT point;    point.x = (wall[6].position.x);     point.y = wall[6].position.y+(wall[6].longueur/2);
     POINT source;   source.x = xSource;     source.y = ySource;
 
     DROITE droite1; droite1.x0 = xSource; droite1.y0 = ySource; droite1.x1 = point.x; droite1.y1 = point.y;
 
     POINT intersect = intersection(droite1, wall[6].droite);
-
+    *indice_self = 6;
     line(source.x, source.y, intersect.x, intersect.y, SDL_MapRGB(screen->format,255,0,100), screen);
 
     POINT image = pointImage(source, intersect, wall[6]);
 
+    intersect = reflection(image, intersect, indice_self, wall, screen);
 
-    DROITE droite2; droite2.x0 = image.x; droite2.y0 = image.y; droite2.x1 = intersect.x; droite2.y1 = intersect.y;
-    float vx = (droite2.x1 - droite2.x0);
-    float distance=0;
-    int j, i=0;
-
-    for(i; i< numberWall ; i++){
-        POINT intersect2 = intersection(droite2, wall[i].droite);
-        float x = intersect2.x; float y = intersect2.y;
-        float dx = (x - intersect.x);
-        float dy = (y - intersect.y);
-        char enVue = ((intersect2.x - intersect.x)/vx) > 0;
-
-        float xMur = wall[i].position.x;
-        float yMur = wall[i].position.y;
-        float longueur = wall[i].longueur;
-
-        if( enVue && y>yMur && y<(yMur+longueur) ){
-            if(distance == 0){
-                distance = sqrt((dx*dx) + (dy*dy));
-                j = i;
-            }
-            else if( sqrt((dx*dx) + (dy*dy)) < distance){
-                distance = sqrt((dx*dx) + (dy*dy));
-                j = i;
-            }
-        }
-
-        else if( enVue && x>xMur && x<(xMur+longueur)){
-           if(distance == 0){
-                distance = sqrt((dx*dx) + (dy*dy));
-                j = i;
-            }
-            else if( sqrt((dx*dx) + (dy*dy)) < distance){
-                distance = sqrt((dx*dx) + (dy*dy));
-                j = i;
-            }
-        }
+    for(int count=0; count <20; count++){
+        image = pointImage(image, intersect, wall[*indice_self]);
+        intersect = reflection(image, intersect, indice_self, wall, screen);
     }
-
-    POINT intersect3 = intersection(droite2, wall[j].droite);
-    line(intersect.x, intersect.y, intersect3.x, intersect3.y, SDL_MapRGB(screen->format,255,0,100), screen);
-
-
 }
-
-/*
-void reflection(POINT point0, POINT point0){
-
-    DROITE droite; droite.x0 = point0.x; droite.y0 = point0.y; droite.x1 = point1.x; droite2.y1 = point1.y;
-    float vx = (droite.x1 - droite.x0);
-    float distance=0;
-    int j, i=0;
-    float x, dx, dy,xMur,yMur,largeur;
-    char enVue;
-
-    for(i; i< numberWall ; i++){
-        POINT intersect2 = intersection(droite2, wall[i].droite);
-        x = intersect2.x; float y = intersect2.y;
-        dx = (x - intersect.x);
-        dy = (y - intersect.y);
-        enVue = ((intersect2.x - intersect.x)/vx) > 0;
-
-        xMur = wall[i].position.x;
-        yMur = wall[i].position.y;
-        largeur = (float)wall[i].largeur;
-
-        if( enVue && y>yMur && y<(yMur+largeur) ){
-            if(distance == 0){
-                distance = sqrt((dx*dx) + (dy*dy));
-                j = i;
-            }
-            else if( sqrt((dx*dx) + (dy*dy)) < distance){
-                distance = sqrt((dx*dx) + (dy*dy));
-                j = i;
-            }
-        }
-
-        else if( enVue && x>xMur && x<(xMur+largeur)){
-           if(distance == 0){
-                distance = sqrt((dx*dx) + (dy*dy));
-                j = i;
-            }
-            else if( sqrt((dx*dx) + (dy*dy)) < distance){
-                distance = sqrt((dx*dx) + (dy*dy));
-                j = i;
-            }
-        }
-    }
-
-
-} */
