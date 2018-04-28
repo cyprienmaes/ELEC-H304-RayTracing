@@ -34,3 +34,4 @@ POINT intersection(DROITE droite1, DROITE droite2){
 
     return intersect;
 }
+

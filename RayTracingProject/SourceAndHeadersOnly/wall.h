@@ -5,7 +5,7 @@
 #include <math.h>
 #include <SDL/SDL.h>
 
-#define scaling 1.7
+#define scaling 1
 
 #ifndef WALL_H_INCLUDED
 #define WALL_H_INCLUDED

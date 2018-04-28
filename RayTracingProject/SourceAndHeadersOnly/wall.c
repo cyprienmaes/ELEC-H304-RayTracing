@@ -5,7 +5,7 @@
 #include <math.h>
 #include <SDL/SDL.h>
 
-#define scaling 1.7
+#define scaling 1.5
 
 int numberWall;
 
@@ -122,3 +122,4 @@ void freeWALL(WALL *wall) {
     SDL_FreeSurface(wall[i].newWall);
     }
 }
+
