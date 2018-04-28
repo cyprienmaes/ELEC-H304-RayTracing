@@ -10,8 +10,8 @@ typedef struct POINT POINT;
 
 struct POINT {
     /* Donne les coordonnées d'un point */
-    int x;
-    int y;
+    float x;
+    float y;
 };
 
 POINT pointImage(POINT copier, POINT comparer, WALL wall) {

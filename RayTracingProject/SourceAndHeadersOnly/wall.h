@@ -27,6 +27,7 @@ Creation of different kinds of wall for reflexion and refraction.
     char vertical;
     int epaisseur;
     int largeur;
+    float longueur;
     DROITE droite;
     // Position of the top left corner of a rectangle.
     SDL_Rect position;

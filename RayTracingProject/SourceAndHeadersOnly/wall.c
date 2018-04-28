@@ -5,7 +5,7 @@
 #include <math.h>
 #include <SDL/SDL.h>
 
-#define scaling 1
+#define scaling 1.5
 
 int numberWall;
 
@@ -26,6 +26,7 @@ Creation of different kinds of wall for reflexion and refraction.
     char vertical;
     int epaisseur;
     int largeur;
+    float longueur;
     DROITE droite;
     // Position of the top left corner of a rectangle.
     SDL_Rect position;
@@ -39,11 +40,17 @@ void createWall(char type, char vertical, int epaisseur, int largeur, int hauteu
    - screen : fenêtre dans laquelle s'affiche le mur
 */
     mur->vertical = vertical;
-    if(vertical){ mur->droite.x0 = posX; mur->droite.y0 = posY; mur->droite.x1 = posX; mur->droite.y1 = (posY+100);}
-    else {        mur->droite.x0 = posX; mur->droite.y0 = posY; mur->droite.x1 = (posX+100); mur->droite.y1 = posY;}
+    if(vertical){
+            mur->droite.x0 = posX; mur->droite.y0 = posY; mur->droite.x1 = posX; mur->droite.y1 = (posY+100);
+            mur->longueur = (float)hauteur;
+    }
+    else {
+            mur->droite.x0 = posX; mur->droite.y0 = posY; mur->droite.x1 = (posX+100); mur->droite.y1 = posY;
+            mur->longueur = (float)largeur;
+    }
     // Attention l'epaisseur n'est pas celle affichee a l'ecran. C'est juste pour le calcul de puissance.
     mur->epaisseur = epaisseur;
-    mur->largeur = largeur;
+    mur->largeur = largeur; // PEUT ETRE ENLEVE?
     mur->position.x = posX;
     mur->position.y = posY;
     mur->newWall = SDL_CreateRGBSurface(SDL_SWSURFACE, largeur, hauteur, 32, 0, 0, 0, 0);
@@ -96,7 +103,7 @@ Creation d'un plan d'etage plus ou moins realiste
         createWall(1,0,0,largeurMap/scaling, 4, 0,i*((hauteurMap/scaling)-4),screen,&wall[i]);
     }
     for(i=0;i<=1;i++) {
-        createWall(1,1,0,4,(hauteurMap/scaling)-8,i*((largeurMap/scaling)-4),4,screen,&wall[i+2]);
+        createWall(1,1,0,4,(hauteurMap/scaling)-8, i*((largeurMap/scaling)-4),4,screen,&wall[i+2]);
     }
     createWall(2,0,0,(100/scaling)-4,4,4,(360/scaling)-4,screen,&wall[4]);
     createWall(2,0,0,100/scaling,4,300/scaling,(360/scaling)-4,screen,&wall[5]);
