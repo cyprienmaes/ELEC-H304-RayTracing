@@ -35,6 +35,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="TXandRX.h" />
+		<Unit filename="evenement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="evenement.h" />
+		<Unit filename="intersection.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="intersection.h" />
 		<Unit filename="line.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -42,14 +50,18 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="menu.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="menu.h" />
+		<Unit filename="point.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="point.h" />
 		<Unit filename="reflection.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="reflection.h" />
-		<Unit filename="videoInitialisation.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="videoInitialisation.h" />
 		<Unit filename="wall.c">
 			<Option compilerVar="CC" />
 		</Unit>
