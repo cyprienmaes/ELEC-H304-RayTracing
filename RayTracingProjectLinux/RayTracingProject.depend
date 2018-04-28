@@ -129,7 +129,9 @@
 	<math.h>
 	<SDL/SDL.h>
 
+
 1524471651 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/main.c
+
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -145,7 +147,7 @@
 	"evenement.h"
 	"intersection.h"
 
-1523370119 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/videoInitialisation.h
+1524476781 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/videoInitialisation.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -171,7 +173,9 @@
 	"line.h"
 	"wall.h"
 
+
 1524471830 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/wall.h
+
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -179,7 +183,9 @@
 	<math.h>
 	<SDL/SDL.h>
 
+
 1524388159 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/TXandRX.h
+
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -205,13 +211,14 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1523373586 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/videoInitialisation.c
+1524476781 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/videoInitialisation.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<unistd.h>
 	<math.h>
 	<SDL/SDL.h>
+
 
 1524471826 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/wall.c
 	<stdio.h>
@@ -222,6 +229,7 @@
 	<SDL/SDL.h>
 
 1524318967 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/point.h
+
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -230,7 +238,9 @@
 	<SDL/SDL.h>
 	"wall.h"
 
+
 1524084614 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/point.c
+
 	<stdio.h>
 	<stdlib.h>
 	<time.h>

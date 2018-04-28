@@ -25,7 +25,5 @@ TRANSMITTER *newTransmitter(int xTX, int yTX, TRANSMITTER *transmitter, SDL_Surf
 
 RECEIVER *newReceiver(int xRX, int yRX, RECEIVER *receiver, SDL_Surface *screen);
 
-
 #endif // TXANDRX_H_INCLUDED
-
 

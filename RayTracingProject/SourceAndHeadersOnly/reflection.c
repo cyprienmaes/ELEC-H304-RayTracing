@@ -9,86 +9,21 @@
 #include "point.h"
 #include "intersection.h"
 
-void methodImage(int xTX, int yTX, int xRX, int yRX, WALL *wall, SDL_Surface *screen, int flag) {
-    if (flag >0){
-        int i, dy, dx, xIm, yIm, yMur, xMur;
-        char sens;
-        float tgTheta;
-        flag-=1;
-        for (i=0;i<numberWall;i++){
-            yMur = wall[i].position.y;
-            xMur = wall[i].position.x;
-            sens = wall[i].vertical;
-            if (yMur > yTX && sens == 0){
-                dy = yMur - yTX;
-                yIm = yTX + 2*dy;
-                xIm = xTX;
-                if(xRX-xIm == 0) xMur = xRX;
-                else {
-                    tgTheta = (float) (yIm-yRX)/(xRX-xIm);
-                    xMur = (yMur-yTX+(xTX*tgTheta))/tgTheta;
-                }
-                line(xTX, yTX, xMur, yMur, SDL_MapRGB(screen->format,0,100,255), screen);
-                line(xMur, yMur, xRX, yRX, SDL_MapRGB(screen->format,0,100,255), screen);
-            }
-
-            else if(xMur>xTX && sens == 1){
-                dx = xMur-xTX;
-                xIm = xTX+2*dx;
-                yIm=yTX;
-                if(yIm-yRX == 0) yMur=yRX;
-                else {
-                    tgTheta=(float)(xIm-xRX)/(yIm-yRX);
-                    yMur = (xTX-xMur+(yTX*tgTheta))/tgTheta;
-                }
-                line(xTX, yTX, xMur, yMur, SDL_MapRGB(screen->format,0,255,100), screen);
-                line(xMur, yMur, xRX, yRX, SDL_MapRGB(screen->format,0,255,100), screen);
-            }
-            else if (yMur<yTX && sens == 0){
-                yMur = yMur+4;
-                dy = yTX-yMur;
-                yIm = yTX-(2*dy);
-                xIm = xTX;
-                if(xRX-xIm == 0) xMur = xTX;
-                else{
-                    tgTheta = (float) (yRX-yIm)/(xRX-xIm);
-                    xMur = (yTX-yMur+(xTX*tgTheta))/tgTheta;
-                }
-                line(xTX, yTX, xMur, yMur, SDL_MapRGB(screen->format,255,0,100), screen);
-                line(xMur, yMur, xRX, yRX, SDL_MapRGB(screen->format,255,0,100), screen);
-            }
-            else if (xMur<xTX && sens == 1){
-                xMur = xMur+4;
-                dx = xTX-xMur;
-                xIm = xTX-2*dx;
-                yIm = yTX;
-                if(yIm-yRX == 0) yMur = yTX;
-                else{
-                    tgTheta = (float) (xRX-xIm)/(yIm-yRX);
-                    yMur = (xMur - xTX +(yTX*tgTheta))/tgTheta;
-                }
-                line(xTX, yTX, xMur, yMur, SDL_MapRGB(screen->format,108,226,236), screen);
-                line(xMur, yMur, xRX, yRX, SDL_MapRGB(screen->format,108,226,236), screen);
-            }
-        }
-    }
-}
-
 POINT reflection(POINT point0, POINT point1, int* indice_self, WALL* wall, SDL_Surface *screen){
     // Algorithme pour effectuer une reflection.
-    // - point0 : est le point image d'une source, ou le transmitter lui-mÍme pour le premier envoi.
-    // - point1 : est la 'nouvelle source', point d'intersection avec le mur prÈcÈdant
+    // - point0 : est le point image d'une source, ou le transmitter lui-m√™me pour le premier envoi.
+    // - point1 : est la 'nouvelle source', point d'intersection avec le mur pr√©c√©dant
     // - indice_self : est l'indice du mur de la 'nouvelle source' que l'on va rentrer en condition pou ne pas analyser le mur
-    //                 sur le lequel on rÈflÈchi
+    //                 sur le lequel on r√©fl√©chi
     // - RETOURNE : le point la prochaine reflexion
 
-    //On crÈe une droite passant par point0 et point1
+    //On cr√©e une droite passant par point0 et point1
     DROITE droite; droite.x0 = point0.x; droite.y0 = point0.y; droite.x1 = point1.x; droite.y1 = point1.y;
     POINT intersect;
 
     float vx = (droite.x1 - droite.x0); // composante x du vecteur directeur de la droite allant dans le sens de la reflection (on aurait bien pu le faire avec vy...)
-    float distance=0; //Important car sinon l'opÈration distance==0 retourne faux...
-    int j, i=0; // i utilisÈ dans le 'for', et j indice de l'intersecion de distance minimum depuis le mur indice_self
+    float distance=0; //Important car sinon l'op√©ration distance==0 retourne faux...
+    int j, i=0; // i utilis√© dans le 'for', et j indice de l'intersecion de distance minimum depuis le mur indice_self
     float x, y, dx, dy,xMur,yMur,longueur;
     char enVue;
 
@@ -98,8 +33,8 @@ POINT reflection(POINT point0, POINT point1, int* indice_self, WALL* wall, SDL_S
             intersect = intersection(droite, wall[i].droite);
             x = intersect.x;         y = intersect.y;
             dx = (x - point1.x);        dy = (y - point1.y);
-            enVue = (dx/vx) > 0; // RÈsolution de l'Èquation lambda > 0, o˘ x1 = x0 + lambda*vx
-                                 // Ceci permet de voir dans la bonne direction par rapport ‡ l'intersection
+            enVue = (dx/vx) > 0; // R√©solution de l'√©quation lambda > 0, o√π x1 = x0 + lambda*vx
+                                 // Ceci permet de voir dans la bonne direction par rapport √† l'intersection
             xMur = wall[i].position.x;
             yMur = wall[i].position.y;
             longueur = wall[i].longueur;

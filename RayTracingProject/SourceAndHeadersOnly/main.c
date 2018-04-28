@@ -38,10 +38,12 @@ int main(int argc, char *argv[]) {
     // Video mode (resolution => 600x600 for example, color displaying, other parameters according to the memory)
     screen = SDL_SetVideoMode(largeurEcran/scaling, (hauteurEcran/scaling)+hauteurMenu, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
 
+
     if (screen == NULL) {
         fprintf(stderr, "Impossible de charger le mode video : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }
+
     // Initialisation de la librairie TTF qui permet d'ecrire dans une fenetre SDL.
     TTF_Init();
 
