@@ -9,6 +9,8 @@
 #ifndef POINT_H_INCLUDED
 #define POINT_H_INCLUDED
 
+#include "wall.h"
+
 typedef struct POINT POINT;
 
 struct POINT {
@@ -16,6 +18,7 @@ struct POINT {
     float x;
     float y;
 };
+POINT image(POINT reel, WALL *wall);
 
 POINT pointImage(POINT copier, POINT comparer, WALL wall);
 

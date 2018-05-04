@@ -7,17 +7,20 @@
 
 #define scaling 1.7
 
+
 #ifndef WALL_H_INCLUDED
 #define WALL_H_INCLUDED
+
 int numberWall;
 
+typedef struct DROITE DROITE;
 struct DROITE{
     // equation de droite y = mx + b
     float x0, y0, x1, y1;
 };
 
-typedef struct DROITE DROITE;
 
+typedef struct WALL WALL;
 struct WALL{
 /*
 Creation of different kinds of wall for reflexion and refraction.
@@ -25,18 +28,18 @@ Creation of different kinds of wall for reflexion and refraction.
     float conductivity;
     float permitivity;
     char vertical;
-    int epaisseur;
-    int largeur;
+    // Longueur du mur en toute generalite
     float longueur;
+    float epaisseur;
     DROITE droite;
     // Position of the top left corner of a rectangle.
     SDL_Rect position;
     SDL_Surface *newWall;
 };
 
-typedef struct WALL WALL;
+void createWall(char type, char vertical, float epaisseur, float longueur, int posX, int posY, SDL_Surface *screen, WALL *mur);
 
-void createWall(char type, char vertical, int epaisseur, int largeur, int hauteur, int posX, int posY, SDL_Surface *screen, WALL *mur);
+WALL *DeuxMurs(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
 
 WALL *SquareMap(SDL_Surface *screen, WALL *wall, int largeurEcran, int hauteurEcran);
 
