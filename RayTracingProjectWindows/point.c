@@ -14,6 +14,28 @@ struct POINT {
     float y;
 };
 
+POINT image(POINT reel, WALL *wall){
+    // Creation d'un point image a partir de la position d'un mur
+    float dx, dy;
+    char sens;
+    POINT point;
+    // distances du point reel a la position du mur
+    // On sait que la largeur des mur fait 4, pour avoir le centre du mur
+    // on fait -2
+    sens = wall->vertical;
+    dx = reel.x - (float)(wall->position.x);
+    dy = reel.y - (float)(wall->position.y);
+    if (sens == 1) {
+        point.x = reel.x - 2*dx;
+        point.y = reel.y;
+    }
+    else {
+        point.y = reel.y - 2*dy;
+        point.x = reel.x;
+    }
+    return point;
+}
+
 POINT pointImage(POINT copier, POINT comparer, WALL wall) {
 /* change la valeur d'un point image au point à copier selon un point à comparer et le sens du mur.
    Attention pointImage est un pointeur, il attend donc une adresse, ne pas oublier de mettre &.

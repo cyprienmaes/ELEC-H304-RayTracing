@@ -10,4 +10,7 @@
 #define INTERSECTION_H_INCLUDED// INTERSECTION_H_INCLUDED
 
 POINT intersection(DROITE droite1, DROITE droite2);
-#endif /
+
+char interExiste(WALL wall, POINT inter, POINT debutReflexion, POINT finReflexion);
+
+#endif
