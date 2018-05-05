@@ -7,10 +7,10 @@
 #include "point.h" // Pour avoir structure POINT
 
 #ifndef INTERSECTION_H_INCLUDED
-#define INTERSECTION_H_INCLUDED
-
-
-
-#endif // INTERSECTION_H_INCLUDED
+#define INTERSECTION_H_INCLUDED// INTERSECTION_H_INCLUDED
 
 POINT intersection(DROITE droite1, DROITE droite2);
+
+char interExiste(WALL wall, POINT inter, POINT debutReflexion, POINT finReflexion);
+
+#endif
