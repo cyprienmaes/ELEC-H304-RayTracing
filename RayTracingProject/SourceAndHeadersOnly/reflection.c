@@ -16,6 +16,7 @@
 #include "point.h"
 #include "intersection.h"
 #include "TXandRX.h"
+#include "coefficients.h"
 
 POINT reflection(POINT point0, POINT point1, int* indice_self, WALL* wall, SDL_Surface *screen){
     // Algorithme pour effectuer une reflection.
