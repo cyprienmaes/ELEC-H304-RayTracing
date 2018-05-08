@@ -4,19 +4,11 @@
 #include <unistd.h>
 #include <math.h>
 #include <SDL/SDL.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <unistd.h>
-#include <math.h>
-#include <complex.h>
-#include <SDL/SDL.h>
 #include "line.h"
 #include "wall.h"
 #include "point.h"
 #include "intersection.h"
 #include "TXandRX.h"
-#include "coefficients.h"
 
 POINT reflection(POINT point0, POINT point1, int* indice_self, WALL* wall, SDL_Surface *screen){
     // Algorithme pour effectuer une reflection.
@@ -102,9 +94,8 @@ void emission(float xSource, float ySource, WALL *wall, SDL_Surface *screen){
 
 POINT *premiereImage(TRANSMITTER *transmitter,WALL *wall, POINT *listeDePoints){
 /*
-    Retourne un tableau dynamique de points. Ces points sont les images de l'emetteur par rapport
-    a chaque mur de la map consideree, donc ils sont la première image de l'emetteur pour un cas de reflexion
-    donné
+    Retourne un tableau dynamique de points. Ces points sont l'images de l'emetteur par rapport
+    a chaque mur de la map consideree.
 */
     int i = 0;
     // On alloue un espace egale au nombre de mur.
@@ -224,13 +215,13 @@ void reflexion(RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Sur
     DROITE droiteDePoints;
     droiteDePoints.x0 = receiver->pointCentral.x;
     droiteDePoints.y0 = receiver->pointCentral.y;
-    for(i=0;i<1;i++){
+    for(i=0;i<numberWall;i++){
         droiteDePoints.x1 = premierPointImage[i].x;
         droiteDePoints.y1 = premierPointImage[i].y;
         interMurDroite = intersection(droiteDePoints,wall[i].droite);
         if (interExiste(wall[i],interMurDroite, transmitter->pointCentral, receiver->pointCentral)) {
-            line(transmitter->pointCentral.x, transmitter->pointCentral.y, interMurDroite.x, interMurDroite.y, SDL_MapRGB(screen->format,255,0,100),screen);
-            line(interMurDroite.x, interMurDroite.y, receiver->pointCentral.x, receiver->pointCentral.y, SDL_MapRGB(screen->format,255,0,100),screen);
+            line(transmitter->pointCentral.x,transmitter->pointCentral.y,interMurDroite.x,interMurDroite.y,SDL_MapRGB(screen->format,255,0,100),screen);
+            line(interMurDroite.x,interMurDroite.y,receiver->pointCentral.x,receiver->pointCentral.y,SDL_MapRGB(screen->format,255,0,100),screen);
         }
         deuxReflexion(premierPointImage[i],i,receiver,transmitter,wall,screen);
     }

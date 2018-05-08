@@ -52,3 +52,4 @@ RECEIVER *newReceiver(int xRX, int yRX, int longueur, int largeur, RECEIVER *rec
     SDL_BlitSurface(receiver->newRECEIVER, NULL, screen, &receiver->position);
     return receiver;
 }
+

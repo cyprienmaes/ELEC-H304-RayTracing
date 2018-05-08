@@ -24,4 +24,3 @@ POINT pointImage(POINT copier, POINT comparer, WALL wall);
 
 
 #endif // POINT_H_INCLUDED
-

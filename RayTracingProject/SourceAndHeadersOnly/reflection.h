@@ -8,7 +8,6 @@
 #include "line.h"
 #include "wall.h"
 #include "TXandRX.h"
-#include "coefficients.h"
 
 #ifndef REFLECTION_H_INCLUDED
 #define REFLECTION_H_INCLUDED
