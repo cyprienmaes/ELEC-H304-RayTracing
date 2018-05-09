@@ -17,6 +17,10 @@ struct POINT {
     float y;
 };
 
+float distance(POINT entrer, POINT sortie);
+
+POINT image(POINT reel, WALL *wall);
+
 POINT pointImage(POINT copier, POINT comparer, WALL wall);
 
 

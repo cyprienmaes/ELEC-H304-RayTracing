@@ -5,6 +5,8 @@
 #include <math.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
+#include "coefficients.h"
+#include "wall.h"
 #include "line.h"
 #include "reflection.h"
 #include "TXandRX.h"
@@ -12,9 +14,10 @@
 #include "menu.h"
 #include "evenement.h"
 #include "intersection.h"
+#include "droite.h"
+#include "transmission.h"
 
 int main(int argc, char *argv[]) {
-
     int hauteurEcran = 800; // en cm
     int largeurEcran = 1120; // en cm
     int hauteurMenu = 100;
@@ -52,15 +55,16 @@ int main(int argc, char *argv[]) {
     }
 
     // Filling of the rectangle
-    SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,255,255,255));
+    SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
     // Title of the main frame
     SDL_WM_SetCaption("Projet de Ray-Tracing v0.1.0", NULL);
     // Creation de la map
-    wall = MapUn(screen,wall,largeurEcran,hauteurEcran);
+    wall = MapUn(screen, wall, largeurEcran, hauteurEcran);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(20,320,transmitter,screen);
-    receiver = newReceiver(320, 250, receiver, screen);
-    emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
+    transmitter = newTransmitter(round(50/scaling),round(700/scaling),10,10, transmitter,screen);
+    receiver = newReceiver(round(900/scaling), round(50/scaling), 10,10, receiver, screen);
+    reflexion(receiver,transmitter,wall,screen);
+    //emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
     // Creation d'un menu ou s'affiche certaines donnees
     createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,screen);
     SDL_Flip(screen);
