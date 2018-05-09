@@ -5,6 +5,7 @@
 #include <math.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
+#include "coefficients.h"
 #include "wall.h"
 #include "line.h"
 #include "reflection.h"
@@ -13,6 +14,8 @@
 #include "menu.h"
 #include "evenement.h"
 #include "intersection.h"
+#include "droite.h"
+#include "transmission.h"
 
 int main(int argc, char *argv[]) {
     int hauteurEcran = 800; // en cm
@@ -58,8 +61,8 @@ int main(int argc, char *argv[]) {
     // Creation de la map
     wall = MapUn(screen, wall, largeurEcran, hauteurEcran);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(round(22/scaling),round(337/scaling),10,10, transmitter,screen);
-    receiver = newReceiver(round(1100/scaling), round(600/scaling), 10,10, receiver, screen);
+    transmitter = newTransmitter(round(50/scaling),round(700/scaling),10,10, transmitter,screen);
+    receiver = newReceiver(round(900/scaling), round(50/scaling), 10,10, receiver, screen);
     reflexion(receiver,transmitter,wall,screen);
     //emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
     // Creation d'un menu ou s'affiche certaines donnees

@@ -14,6 +14,12 @@ struct POINT {
     float y;
 };
 
+float distance(POINT entrer, POINT sortie) {
+    float dist;
+    dist = sqrt(pow(sortie.x-entrer.x,2)+pow(sortie.y-entrer.y,2));
+    return dist;
+}
+
 POINT image(POINT reel, WALL *wall){
     // Creation d'un point image a partir de la position d'un mur
     float dx, dy;

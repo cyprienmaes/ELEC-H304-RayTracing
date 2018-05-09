@@ -11,6 +11,6 @@
 
 POINT intersection(DROITE droite1, DROITE droite2);
 
-char interExiste(WALL wall, POINT inter, POINT debutReflexion, POINT finReflexion);
+char interExiste(WALL *wall, POINT inter, POINT debutReflexion, POINT finReflexion);
 
 #endif
