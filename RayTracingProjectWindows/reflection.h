@@ -8,6 +8,8 @@
 #include "line.h"
 #include "wall.h"
 #include "TXandRX.h"
+#include "droite.h"
+#include "transmission.h"
 
 #ifndef REFLECTION_H_INCLUDED
 #define REFLECTION_H_INCLUDED

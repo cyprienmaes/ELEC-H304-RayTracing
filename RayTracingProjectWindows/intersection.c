@@ -35,16 +35,16 @@ POINT intersection(DROITE droite1, DROITE droite2){
     return intersect;
 }
 
-char interExiste(WALL wall, POINT inter, POINT debutReflexion, POINT finReflexion) {
+char interExiste(WALL *wall, POINT inter, POINT debutReflexion, POINT finReflexion) {
 /*
     Fonction qui retourne un si l'intersection existe sur le mur.
 */
-    char sens = wall.vertical;
+    char sens = wall->vertical;
     char ok;
     // On verifie d'abord le sens du mur.
     if (sens == 1) {
         // On verifie que l'intersection est bien sur le mur et pas ailleurs;
-        if (inter.y < wall.position.y || inter.y > wall.position.y+wall.longueur) ok = 0;
+        if (inter.y < wall->position.y || inter.y > wall->position.y+wall->longueur) ok = 0;
         // Si c'est le cas, il faut encore verifier que les deux points qui vont donner le debut
         // et la fin de la reflexion se trouver du meme cote du mur.
         else {
@@ -56,7 +56,7 @@ char interExiste(WALL wall, POINT inter, POINT debutReflexion, POINT finReflexio
     }
     else {
         // On refait la meme chose mais dans le cas ou le mur est horizontal.
-        if (inter.x < wall.position.x || inter.x > wall.position.x+wall.longueur) ok = 0;
+        if (inter.x < wall->position.x || inter.x > wall->position.x+wall->longueur) ok = 0;
         else {
             if ((inter.y < debutReflexion.y && inter.y < finReflexion.y) || (inter.y > debutReflexion.y && inter.y > finReflexion.y)) {
                 ok = 1;

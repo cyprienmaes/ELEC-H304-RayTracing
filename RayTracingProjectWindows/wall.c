@@ -4,17 +4,11 @@
 #include <unistd.h>
 #include <math.h>
 #include <SDL/SDL.h>
+#include "droite.h"
 
 #define scaling 1.7
 
 int numberWall;
-
-typedef struct DROITE DROITE;
-struct DROITE{
-    // equation de droite y = mx + b
-    float x0, y0, x1, y1;
-};
-
 
 typedef struct WALL WALL;
 struct WALL{
@@ -85,6 +79,20 @@ WALL *DeuxMurs(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap) 
     for(i=0;i<=1;i++){
         createWall(1,0,0,largeurMap/scaling,0,i*((hauteurMap/scaling)-4),screen,&wall[i]);
     }
+    return wall;
+}
+
+WALL *TroisMur(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap) {
+    numberWall = 5;
+    wall = malloc(numberWall*sizeof(WALL));
+    if (wall == NULL) exit(0);
+    int i = 0;
+    for(i=0;i<=1;i++){
+        createWall(1,0,0,largeurMap/scaling,0,i*((hauteurMap/scaling)-4),screen,&wall[i]);
+    }
+    createWall(1,1,0,(hauteurMap/scaling)-8,(largeurMap/scaling)/2,4,screen,&wall[2]);
+    createWall(1,1,0,(hauteurMap/scaling)-8,(largeurMap/scaling)/2+100,4,screen,&wall[3]);
+    createWall(1,1,0,(hauteurMap/scaling)-8,(largeurMap/scaling)-4,4,screen,&wall[4]);
     return wall;
 }
 
