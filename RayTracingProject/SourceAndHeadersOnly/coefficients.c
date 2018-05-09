@@ -89,5 +89,3 @@ float norme_coeff_transmission(float theta_i, float eps_rel, float sigma, float 
 
     return cabs( ((1-pow(coef_perp,2))*cexp(-s*gamma)) / ((1-pow(coef_perp,2)*partie_exp)));
 }
-
-

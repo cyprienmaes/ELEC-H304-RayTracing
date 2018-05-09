@@ -9,6 +9,8 @@
 #include "point.h"
 #include "intersection.h"
 #include "TXandRX.h"
+#include "droite.h"
+#include "transmission.h"
 
 POINT reflection(POINT point0, POINT point1, int* indice_self, WALL* wall, SDL_Surface *screen){
     // Algorithme pour effectuer une reflection.
@@ -114,15 +116,11 @@ void troisReflexion(POINT lePoint1, POINT lePoint2, int murNonConsiderer1, int m
 /*
 Dessine toutes les possibilites de faire 3 reflexions entre l'emetteur et le recepteur.
 */
+    Uint8 r = 0; Uint8 v = 255; Uint8 b = 0;
+    Uint8 *rouge = &r; Uint8 *vert = &v; Uint8 *bleu = &b;
     POINT nouvelleImage;
-    POINT inter1;
-    POINT inter2;
-    POINT inter3;
-    DROITE droiteInter1;
-    DROITE droiteInter2;
-    DROITE droiteInter3;
-    droiteInter1.x1 = receiver->pointCentral.x;
-    droiteInter1.y1 = receiver->pointCentral.y;
+    POINT inter[3];
+    DROITE droiteInter[3];
     int i = 0;
     // On regarde tous les murs sauf le mur de la dernier symetrie.
     for (i = 0; i<numberWall; i++) {
@@ -131,34 +129,28 @@ Dessine toutes les possibilites de faire 3 reflexions entre l'emetteur et le rec
             // On creer un nouveau point image
             nouvelleImage = image(lePoint2, &wall[i]);
             // On en fait une droite avec le recepteur
-            droiteInter1.x0 = nouvelleImage.x;
-            droiteInter1.y0 = nouvelleImage.y;
+            droiteInter[0] = createDroite(nouvelleImage.x,nouvelleImage.y,receiver->pointCentral.x,receiver->pointCentral.y);
             // On calcul l'intersection avec le mur de la symetrie du nouveau point image
-            inter1 = intersection(droiteInter1,wall[i].droite);
+            inter[0] = intersection(droiteInter[0],wall[i].droite);
             // On creer une nouvelle droite entre le point d'intersection trouver
             // et le point image precedent.
-            droiteInter2.x0 = inter1.x;
-            droiteInter2.y0 = inter1.y;
-            droiteInter2.x1 = lePoint2.x;
-            droiteInter2.y1 = lePoint2.y;
+            droiteInter[1] = createDroite(inter[0].x,inter[0].y,lePoint2.x,lePoint2.y);
             // On calcul l'intersection selon le mur de symetrie precedent
-            inter2 = intersection(droiteInter2,wall[murNonConsiderer2].droite);
+            inter[1] = intersection(droiteInter[1],wall[murNonConsiderer2].droite);
             // On creer une nouvelle droite entre le point d'intersection trouver
             // et le point image precedent le precedent.
-            droiteInter3.x0 = inter2.x;
-            droiteInter3.y0 = inter2.y;
-            droiteInter3.x1 = lePoint1.x;
-            droiteInter3.y1 = lePoint1.y;
+            droiteInter[2] = createDroite(inter[1].x,inter[1].y,lePoint1.x,lePoint1.y);
             // On calcul l'intersection selon le mur de symetrie precedent le precedent
-            inter3 = intersection(droiteInter3,wall[murNonConsiderer1].droite);
+            inter[2] = intersection(droiteInter[2],wall[murNonConsiderer1].droite);
             // On test toutes les intersections pour etre sur que la reflexion existe
-            if (interExiste(wall[i],inter1,inter2,receiver->pointCentral)) {
-                if (interExiste(wall[murNonConsiderer2], inter2, inter3, inter1)) {
-                    if(interExiste(wall[murNonConsiderer1], inter3, transmitter->pointCentral, inter2)) {
-                        line(inter1.x,inter1.y,receiver->pointCentral.x,receiver->pointCentral.y,SDL_MapRGB(screen->format,255,128,0),screen);
-                        line(inter1.x,inter1.y,inter2.x,inter2.y,SDL_MapRGB(screen->format,255,128,0),screen);
-                        line(inter2.x,inter2.y,inter3.x,inter3.y,SDL_MapRGB(screen->format,255,128,0),screen);
-                        line(transmitter->pointCentral.x,transmitter->pointCentral.y,inter3.x,inter3.y,SDL_MapRGB(screen->format,255,128,0),screen);
+            if (interExiste(&wall[i],inter[0],inter[1],receiver->pointCentral)==1) {
+                if (interExiste(&wall[murNonConsiderer2], inter[1], inter[2], inter[0])==1) {
+                    if(interExiste(&wall[murNonConsiderer1], inter[2], transmitter->pointCentral, inter[1])==1) {
+                        transmission(3,transmitter->pointCentral,inter[2],rouge,vert,bleu,wall,screen);
+                        transmission(3,inter[2],inter[1],rouge,vert,bleu,wall,screen);
+                        transmission(3,inter[1],inter[0],rouge,vert,bleu,wall,screen);
+                        transmission(3,inter[0],receiver->pointCentral,rouge,vert,bleu,wall,screen);
+                        r = 0; v = 255; b = 0;
                     }
                 }
             }
@@ -171,30 +163,27 @@ void deuxReflexion(POINT lePoint, int murNonConsiderer, RECEIVER *receiver, TRAN
 Dessine toutes les possibilites de faire 2 reflexions entre l'emetteur et le recepteur.
 Fonctionne sur le meme principe que troisReflexion.
 */
+    Uint8 r = 0; Uint8 v = 0; Uint8 b = 255;
+    Uint8 *rouge = &r; Uint8 *vert = &v; Uint8 *bleu = &b;
     POINT nouvelleImage;
-    POINT inter1;
-    POINT inter2;
-    DROITE droiteDePoints;
-    DROITE droiteIntersection;
-    droiteDePoints.x1 = receiver->pointCentral.x;
-    droiteDePoints.y1 = receiver->pointCentral.y;
+    POINT inter[2];
+    DROITE droiteInter[2];
     int i = 0;
     for (i=0;i<numberWall;i++){
         if (i==murNonConsiderer);
         else {
             nouvelleImage = image(lePoint,&wall[i]);
-            droiteDePoints.x0 = nouvelleImage.x;
-            droiteDePoints.y0 = nouvelleImage.y;
-            inter1 = intersection(droiteDePoints,wall[i].droite);
-            droiteIntersection.x0 = inter1.x;
-            droiteIntersection.y0 = inter1.y;
-            droiteIntersection.x1 = lePoint.x;
-            droiteIntersection.y1 = lePoint.y;
-            inter2 = intersection(droiteIntersection,wall[murNonConsiderer].droite);
-            if(interExiste(wall[murNonConsiderer],inter2,transmitter->pointCentral,inter1) && interExiste(wall[i],inter1,inter2,receiver->pointCentral)){
-                line(inter1.x,inter1.y,receiver->pointCentral.x,receiver->pointCentral.y,SDL_MapRGB(screen->format,0,255,100),screen);
-                line(inter1.x,inter1.y,inter2.x,inter2.y,SDL_MapRGB(screen->format,0,255,100),screen);
-                line(transmitter->pointCentral.x,transmitter->pointCentral.y,inter2.x,inter2.y,SDL_MapRGB(screen->format,0,255,100),screen);
+            droiteInter[0] = createDroite(nouvelleImage.x,nouvelleImage.y,receiver->pointCentral.x,receiver->pointCentral.y);
+            inter[0] = intersection(droiteInter[0],wall[i].droite);
+            droiteInter[1] = createDroite(inter[0].x,inter[0].y,lePoint.x,lePoint.y);
+            inter[1] = intersection(droiteInter[1],wall[murNonConsiderer].droite);
+            if(interExiste(&wall[murNonConsiderer],inter[1],transmitter->pointCentral,inter[0]) == 1) {
+                if( interExiste(&wall[i],inter[0],inter[1],receiver->pointCentral) == 1){
+                    transmission(2,transmitter->pointCentral,inter[1],rouge,vert,bleu,wall,screen);
+                    transmission(2,inter[1],inter[0],rouge,vert,bleu,wall,screen);
+                    transmission(2,inter[0],receiver->pointCentral,rouge,vert,bleu,wall,screen);
+                    r = 0; v = 0; b = 255;
+                }
             }
             // On envoie le point de symetrie de la premiere image et la nouvelleImage calculee
             // dans troisReflexion
@@ -209,6 +198,8 @@ void reflexion(RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Sur
     Fonctionne sur le meme principe que deuxReflexion.
 */
     int i = 0;
+    Uint8 r = 255; Uint8 v = 0; Uint8 b = 0;
+    Uint8 *rouge = &r; Uint8 *vert = &v; Uint8 *bleu = &b;
     POINT *premierPointImage = NULL;
     premierPointImage = premiereImage(transmitter,wall,premierPointImage);
     POINT interMurDroite;
@@ -219,9 +210,10 @@ void reflexion(RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Sur
         droiteDePoints.x1 = premierPointImage[i].x;
         droiteDePoints.y1 = premierPointImage[i].y;
         interMurDroite = intersection(droiteDePoints,wall[i].droite);
-        if (interExiste(wall[i],interMurDroite, transmitter->pointCentral, receiver->pointCentral)) {
-            line(transmitter->pointCentral.x,transmitter->pointCentral.y,interMurDroite.x,interMurDroite.y,SDL_MapRGB(screen->format,255,0,100),screen);
-            line(interMurDroite.x,interMurDroite.y,receiver->pointCentral.x,receiver->pointCentral.y,SDL_MapRGB(screen->format,255,0,100),screen);
+        if (interExiste(&wall[i],interMurDroite, transmitter->pointCentral, receiver->pointCentral)==1) {
+            transmission(1,transmitter->pointCentral,interMurDroite,rouge,vert,bleu,wall,screen);
+            transmission(1,interMurDroite,receiver->pointCentral,rouge,vert,bleu,wall,screen);
+            r = 255; v = 0; b = 0;
         }
         deuxReflexion(premierPointImage[i],i,receiver,transmitter,wall,screen);
     }
