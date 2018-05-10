@@ -18,10 +18,10 @@
 #include "transmission.h"
 
 int main(int argc, char *argv[]) {
-    int hauteurEcran = 800; // en cm
-    int largeurEcran = 1120; // en cm
+    int hauteurEcran = 700; // en cm
+    int largeurEcran = 1400; // en cm
     int hauteurMenu = 100;
-    int largeurMenu = 1120;
+    int largeurMenu = 1400;
 
     WALL* wall = NULL;
     TRANSMITTER *transmitter = NULL;
@@ -59,11 +59,11 @@ int main(int argc, char *argv[]) {
     // Title of the main frame
     SDL_WM_SetCaption("Projet de Ray-Tracing v0.1.0", NULL);
     // Creation de la map
-    wall = MapUn(screen, wall, largeurEcran, hauteurEcran);
+    wall = MapDeux(screen, wall, largeurEcran, hauteurEcran);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(round(50/scaling),round(700/scaling),10,10, transmitter,screen);
-    receiver = newReceiver(round(900/scaling), round(50/scaling), 10,10, receiver, screen);
-    reflexion(receiver,transmitter,wall,screen);
+    transmitter = newTransmitter(round(1300/scaling),round(650/scaling),10,10, transmitter,screen);
+    receiver = newReceiver(round(50/scaling), round(250/scaling), 10,10, receiver, screen);
+    onde(receiver,transmitter,wall,screen);
     //emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
     // Creation d'un menu ou s'affiche certaines donnees
     createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,screen);
