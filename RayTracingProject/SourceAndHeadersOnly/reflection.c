@@ -187,7 +187,7 @@ Fonctionne sur le meme principe que troisReflexion.
             }
             // On envoie le point de symetrie de la premiere image et la nouvelleImage calculee
             // dans troisReflexion
-            //troisReflexion(lePoint,nouvelleImage,murNonConsiderer,i,receiver,transmitter,wall,screen);
+            troisReflexion(lePoint,nouvelleImage,murNonConsiderer,i,receiver,transmitter,wall,screen);
         }
     }
 }
