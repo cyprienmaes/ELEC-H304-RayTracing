@@ -11,7 +11,7 @@
 #include "TXandRX.h"
 #include "droite.h"
 #include "transmission.h"
-
+/*
 POINT reflection(POINT point0, POINT point1, int* indice_self, WALL* wall, SDL_Surface *screen){
     // Algorithme pour effectuer une reflection.
     // - point0 : est le point image d'une source, ou le transmitter lui-même pour le premier envoi.
@@ -93,7 +93,7 @@ void emission(float xSource, float ySource, WALL *wall, SDL_Surface *screen){
         intersect = reflection(image, intersect, indice_self, wall, screen);
     }
 }
-
+*/
 POINT *premiereImage(TRANSMITTER *transmitter,WALL *wall, POINT *listeDePoints){
 /*
     Retourne un tableau dynamique de points. Ces points sont l'images de l'emetteur par rapport
@@ -116,8 +116,7 @@ void troisReflexion(POINT lePoint1, POINT lePoint2, int murNonConsiderer1, int m
 /*
 Dessine toutes les possibilites de faire 3 reflexions entre l'emetteur et le recepteur.
 */
-    Uint8 r = 0; Uint8 v = 255; Uint8 b = 0;
-    Uint8 *rouge = &r; Uint8 *vert = &v; Uint8 *bleu = &b;
+    int nbTransGlobal = 0;
     POINT nouvelleImage;
     POINT inter[3];
     DROITE droiteInter[3];
@@ -146,11 +145,11 @@ Dessine toutes les possibilites de faire 3 reflexions entre l'emetteur et le rec
             if (interExiste(&wall[i],inter[0],inter[1],receiver->pointCentral)==1) {
                 if (interExiste(&wall[murNonConsiderer2], inter[1], inter[2], inter[0])==1) {
                     if(interExiste(&wall[murNonConsiderer1], inter[2], transmitter->pointCentral, inter[1])==1) {
-                        transmission(3,transmitter->pointCentral,inter[2],rouge,vert,bleu,wall,screen);
-                        transmission(3,inter[2],inter[1],rouge,vert,bleu,wall,screen);
-                        transmission(3,inter[1],inter[0],rouge,vert,bleu,wall,screen);
-                        transmission(3,inter[0],receiver->pointCentral,rouge,vert,bleu,wall,screen);
-                        r = 0; v = 255; b = 0;
+                        nbTransGlobal += transmission(3,nbTransGlobal,transmitter->pointCentral,inter[2],wall,screen);
+                        nbTransGlobal += transmission(3,nbTransGlobal,inter[2],inter[1],wall,screen);
+                        nbTransGlobal += transmission(3,nbTransGlobal,inter[1],inter[0],wall,screen);
+                        nbTransGlobal += transmission(3,nbTransGlobal,inter[0],receiver->pointCentral,wall,screen);
+                        nbTransGlobal = 0;
                     }
                 }
             }
@@ -163,8 +162,7 @@ void deuxReflexion(POINT lePoint, int murNonConsiderer, RECEIVER *receiver, TRAN
 Dessine toutes les possibilites de faire 2 reflexions entre l'emetteur et le recepteur.
 Fonctionne sur le meme principe que troisReflexion.
 */
-    Uint8 r = 0; Uint8 v = 0; Uint8 b = 255;
-    Uint8 *rouge = &r; Uint8 *vert = &v; Uint8 *bleu = &b;
+    int nbTransGlobal = 0;
     POINT nouvelleImage;
     POINT inter[2];
     DROITE droiteInter[2];
@@ -179,15 +177,15 @@ Fonctionne sur le meme principe que troisReflexion.
             inter[1] = intersection(droiteInter[1],wall[murNonConsiderer].droite);
             if(interExiste(&wall[murNonConsiderer],inter[1],transmitter->pointCentral,inter[0]) == 1) {
                 if( interExiste(&wall[i],inter[0],inter[1],receiver->pointCentral) == 1){
-                    transmission(2,transmitter->pointCentral,inter[1],rouge,vert,bleu,wall,screen);
-                    transmission(2,inter[1],inter[0],rouge,vert,bleu,wall,screen);
-                    transmission(2,inter[0],receiver->pointCentral,rouge,vert,bleu,wall,screen);
-                    r = 0; v = 0; b = 255;
+                    nbTransGlobal += transmission(2,nbTransGlobal,transmitter->pointCentral,inter[1],wall,screen);
+                    nbTransGlobal += transmission(2,nbTransGlobal,inter[1],inter[0],wall,screen);
+                    nbTransGlobal += transmission(2,nbTransGlobal,inter[0],receiver->pointCentral,wall,screen);
+                    nbTransGlobal = 0;
                 }
             }
             // On envoie le point de symetrie de la premiere image et la nouvelleImage calculee
             // dans troisReflexion
-            troisReflexion(lePoint,nouvelleImage,murNonConsiderer,i,receiver,transmitter,wall,screen);
+            // troisReflexion(lePoint,nouvelleImage,murNonConsiderer,i,receiver,transmitter,wall,screen);
         }
     }
 }
@@ -198,8 +196,7 @@ void reflexion(RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Sur
     Fonctionne sur le meme principe que deuxReflexion.
 */
     int i = 0;
-    Uint8 r = 255; Uint8 v = 0; Uint8 b = 0;
-    Uint8 *rouge = &r; Uint8 *vert = &v; Uint8 *bleu = &b;
+    int nbTransGlobal = 0;
     POINT *premierPointImage = NULL;
     premierPointImage = premiereImage(transmitter,wall,premierPointImage);
     POINT interMurDroite;
@@ -211,10 +208,18 @@ void reflexion(RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Sur
         droiteDePoints.y1 = premierPointImage[i].y;
         interMurDroite = intersection(droiteDePoints,wall[i].droite);
         if (interExiste(&wall[i],interMurDroite, transmitter->pointCentral, receiver->pointCentral)==1) {
-            transmission(1,transmitter->pointCentral,interMurDroite,rouge,vert,bleu,wall,screen);
-            transmission(1,interMurDroite,receiver->pointCentral,rouge,vert,bleu,wall,screen);
-            r = 255; v = 0; b = 0;
+            nbTransGlobal += transmission(1,nbTransGlobal,transmitter->pointCentral,interMurDroite,wall,screen);
+            nbTransGlobal += transmission(1,nbTransGlobal,interMurDroite,receiver->pointCentral,wall,screen);
+            nbTransGlobal = 0;
         }
-        deuxReflexion(premierPointImage[i],i,receiver,transmitter,wall,screen);
+       //deuxReflexion(premierPointImage[i],i,receiver,transmitter,wall,screen);
     }
+}
+
+void onde(RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen){
+    int nbTransGlobal = 0;
+    nbTransGlobal += transmission(0,nbTransGlobal,transmitter->pointCentral,receiver->pointCentral,wall,screen);
+    printf("nombre total de transmission : %d\n",nbTransGlobal);
+    nbTransGlobal = 0;
+    reflexion(receiver,transmitter,wall,screen);
 }
