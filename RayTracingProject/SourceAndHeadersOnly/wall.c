@@ -63,7 +63,7 @@ void createWall(char type, char vertical, float epaisseur, float longueur, int p
             break;
         case 3 :
             // beton
-            mur->conductivity = 0.14;
+            mur->conductivity = 0.014;
             mur->permitivity = 5;
             SDL_FillRect(mur->newWall, NULL, SDL_MapRGB(screen->format, 90, 90, 90));
             break;
