@@ -1,3 +1,4 @@
 Emetteur en rose
 Recepteur en jaune
-nombre total de transmission : 2
+nombre total de transmission : 1
+T'es moche

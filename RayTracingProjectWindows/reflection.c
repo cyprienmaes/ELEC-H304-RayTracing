@@ -162,6 +162,7 @@ void deuxReflexion(POINT lePoint, int murNonConsiderer, RECEIVER *receiver, TRAN
 Dessine toutes les possibilites de faire 2 reflexions entre l'emetteur et le recepteur.
 Fonctionne sur le meme principe que troisReflexion.
 */
+    printf("T'es moche");
     int nbTransGlobal = 0;
     POINT nouvelleImage;
     POINT inter[2];
@@ -185,7 +186,7 @@ Fonctionne sur le meme principe que troisReflexion.
             }
             // On envoie le point de symetrie de la premiere image et la nouvelleImage calculee
             // dans troisReflexion
-            // troisReflexion(lePoint,nouvelleImage,murNonConsiderer,i,receiver,transmitter,wall,screen);
+            troisReflexion(lePoint,nouvelleImage,murNonConsiderer,i,receiver,transmitter,wall,screen);
         }
     }
 }
@@ -212,7 +213,7 @@ void reflexion(RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Sur
             nbTransGlobal += transmission(1,nbTransGlobal,interMurDroite,receiver->pointCentral,wall,screen);
             nbTransGlobal = 0;
         }
-       //deuxReflexion(premierPointImage[i],i,receiver,transmitter,wall,screen);
+        deuxReflexion(premierPointImage[i],i,receiver,transmitter,wall,screen);
     }
 }
 

@@ -145,29 +145,27 @@ Creation d'un plan d'etage plus ou moins realiste
 WALL *MapDeux(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap){
     numberWall = 18;
     wall = malloc(numberWall*sizeof(WALL));
-    int i = 0;
     // Les 4 murs exterieurs ont en betons
-    for(i=0;i<=1;i++){
-        createWall(3,0,19e-2,largeurMap/scaling, 0,i*((hauteurMap/scaling)-4),screen,&wall[i]);
-    }
+    createWall(3,0,19e-2,largeurMap/scaling, 0,0,screen,&wall[0]);
+    createWall(3,0,19e-2,largeurMap/scaling,0,(hauteurMap/scaling)-4,screen,&wall[1]);
     createWall(3,1,19e-2,(hauteurMap/scaling)-8,(largeurMap/scaling)-4,4,screen,&wall[2]);
-    createWall(3,1,19e-2,325/scaling,0,0,screen,&wall[3]);
-    createWall(3,1,19e-2,(hauteurMap-425)/scaling,0,425/scaling,screen,&wall[4]);
+    createWall(3,1,19e-2,325/scaling,0,4,screen,&wall[3]);
+    createWall(3,1,19e-2,((hauteurMap-425)-4)/scaling,0,425/scaling,screen,&wall[4]);
     // Les murs interieurs sont presque tous en cloisons
-    createWall(2,0,13e-2,175/scaling,0,300/scaling,screen,&wall[5]);
-    createWall(2,0,13e-2,180/scaling,275/scaling,300/scaling,screen,&wall[6]);
-    createWall(2,1,15e-2,300/scaling+4,450/scaling,0,screen,&wall[7]);
-    createWall(2,0,13e-2,75/scaling,450/scaling,200/scaling,screen,&wall[8]);
-    createWall(2,0,13e-2,75/scaling,625/scaling,200/scaling,screen,&wall[9]);
-    createWall(2,1,15e-2,200/scaling+4,700/scaling,0,screen,&wall[10]);
-    createWall(2,0,13e-2,25/scaling,700/scaling,200/scaling,screen,&wall[11]);
-    createWall(2,0,13e-2,25/scaling,825/scaling,200/scaling,screen,&wall[12]);
-    createWall(2,1,15e-2,300/scaling+4,850/scaling,0,screen,&wall[13]);
-    createWall(2,0,13e-2,100/scaling,850/scaling,300/scaling,screen,&wall[14]);
-    createWall(2,0,13e-2,350/scaling,1050/scaling,300/scaling,screen,&wall[15]);
+    createWall(2,0,13e-2,175/scaling,1,300/scaling,screen,&wall[5]);
+    createWall(2,0,13e-2,175/scaling+4,276/scaling,300/scaling,screen,&wall[6]);
+    createWall(2,1,15e-2,299/scaling,451/scaling,1,screen,&wall[7]);
+    createWall(2,0,13e-2,75/scaling,452/scaling,200/scaling,screen,&wall[8]);
+    createWall(2,0,13e-2,104/scaling,627/scaling,200/scaling,screen,&wall[9]);
+    createWall(2,1,15e-2,199/scaling,702/scaling,1,screen,&wall[10]);
+    createWall(2,0,13e-2,25/scaling,831/scaling,200/scaling,screen,&wall[11]);
+    createWall(2,1,15e-2,299/scaling,856/scaling,1,screen,&wall[12]);
+    createWall(2,0,13e-2,100/scaling,856/scaling,300/scaling,screen,&wall[13]);
+    createWall(2,0,13e-2,340/scaling,1056/scaling,300/scaling,screen,&wall[14]);
     // mur en brique
-    createWall(1,0,20e-2,750/scaling,0,450/scaling,screen,&wall[16]);
-    createWall(1,1,20e-2,250/scaling,850/scaling,450/scaling,screen,&wall[17]);
+    createWall(1,0,20e-2,750/scaling,1,450/scaling,screen,&wall[15]);
+    // createWall(1,1,20e-2,244/scaling,856/scaling,450/scaling,screen,&wall[16]);
+    createWall(2,0,0,244/scaling,900/scaling,450/scaling,screen,&wall[17]);
     return wall;
 }
 

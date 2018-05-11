@@ -62,9 +62,9 @@ int main(int argc, char *argv[]) {
     wall = MapDeux(screen, wall, largeurEcran, hauteurEcran);
     // Creation de l'emetteur et du recepteur.
     transmitter = newTransmitter(round(1300/scaling),round(650/scaling),10,10, transmitter,screen);
-    receiver = newReceiver(round(50/scaling), round(250/scaling), 10,10, receiver, screen);
+    receiver = newReceiver(round(1100/scaling), round(250/scaling), 10,10, receiver, screen);
     onde(receiver,transmitter,wall,screen);
-    //emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
+    // emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
     // Creation d'un menu ou s'affiche certaines donnees
     createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,screen);
     SDL_Flip(screen);
