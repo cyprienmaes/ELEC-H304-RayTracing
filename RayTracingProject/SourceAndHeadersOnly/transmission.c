@@ -10,24 +10,30 @@
 #include "intersection.h"
 #include "TXandRX.h"
 #include "droite.h"
+#include "coefficients.h"
 
 char transExiste(POINT avant, POINT apres, POINT transmission, WALL *wall){
+/*
+Fonction qui verifie que le point de transmission existe au sein du plan et qu'il soit associe a un mur bien defini.
+*/
     char existe = 0;
+    // On regarde si le point transmis se trouve bien dans les limites du plans
+    // On doit faire -4 pour un mur etant au mimite du plan, car le seul point admis est sur la tranche de gauche ou du dessus.
     if(wall->vertical == 1){
-        if (round(transmission.y) < wall->position.y || round(transmission.y) > wall->position.y + wall->longueur) {
+        if (transmission.y < wall->posReeleY || transmission.y > wall->posReeleY + wall->longueur) {
             existe = 0;
         }
         else {
-            if((round(transmission.x) > round(avant.x) && round(transmission.x) < round(apres.x)) || (round(transmission.x) > round(apres.x) && round(transmission.x) < round(avant.x))) existe = 1;
+            if((transmission.x > avant.x && transmission.x < apres.x) || (transmission.x > apres.x && transmission.x < avant.x)) existe = 1;
             else existe = 0;
         }
     }
     else{
-        if (round(transmission.x) < wall->position.x || round(transmission.x) > wall->position.x + wall->longueur) {
+        if (transmission.x < wall->posReeleX || transmission.x > wall->posReeleX + wall->longueur) {
             existe = 0;
         }
         else {
-            if((round(transmission.y) > round(avant.y) && round(transmission.y) < round(apres.y)) || (round(transmission.y) > round(apres.y) && round(transmission.y) < round(avant.y))) existe = 1;
+            if((transmission.y > avant.y && transmission.y < apres.y) || (transmission.y > apres.y && transmission.y < avant.y)) existe = 1;
             else existe = 0;
         }
     }
@@ -35,8 +41,11 @@ char transExiste(POINT avant, POINT apres, POINT transmission, WALL *wall){
 }
 
 POINT *transList(int compte, POINT transmis, POINT *listeAvant, POINT *listeApres){
+/*
+Fonction qui creer une liste selon une ancienne en reprenant ces termes et en ajoutant le point transmis suivant.
+*/
     int j = 0;
-    listeApres = malloc((compte)*sizeof(POINT));
+    listeApres = malloc((compte+1)*sizeof(POINT));
     // On regarde si l'autre tableau n'a pas deja des elements
     for (j=0;j<compte;j++){
         // On place les points transmis dans le tableau
@@ -47,10 +56,13 @@ POINT *transList(int compte, POINT transmis, POINT *listeAvant, POINT *listeApre
 }
 
 POINT *transTrie(int compte, POINT avant, POINT *liste){
+/*
+Fonction qui trie les points en fonction de la distance par rapport au point avant.
+*/
     int i = 0;
     POINT sauver = liste[compte-1];
     POINT intermediaire;
-    for (i=1;i<compte;i++){
+    for (i=0;i<compte;i++){
         // On calcul les distances entre le point de source et les points de transmission et on les trie
         // dans le tableau.
         if (distance(avant,sauver)<distance(avant,liste[i])){
@@ -62,84 +74,66 @@ POINT *transTrie(int compte, POINT avant, POINT *liste){
     return liste;
 }
 
-Uint32 changeCouleur(int changement,int nbTrans,SDL_Surface *screen){
-    Uint32 color;
-    switch (changement) {
-        case 0 :
-            color = SDL_MapRGB(screen->format,255-(nbTrans*55),255-(nbTrans*55),255-(nbTrans*55));
-            break;
-        case 1 :
-            // Il ne devrait a priori pas avoir plus de 5 transmissions
-            color = SDL_MapRGB(screen->format,255,nbTrans*55,0);
-            break;
-        case 2 :
-            color = SDL_MapRGB(screen->format,nbTrans*55,0,255);
-            break;
-        case 3 :
-            color = SDL_MapRGB(screen->format,0,255,nbTrans*55);
-            break;
-    }
-    return color;
+double coeffTrans(POINT avant, POINT transmis, WALL wall) {
+    double theta;
+    double coeff;
+    theta = theta_i(avant.x,avant.y,transmis.x,transmis.y, wall.vertical);
+    coeff = norme_coeff_transmission(theta, wall.permitivity, wall.conductivity, wall.epaisseur);
+    return coeff;
 }
 
-int transLigne(int compte, int colorChange, int nbTransGlobal, POINT avant, POINT apres, POINT *listeTransmission, SDL_Surface *screen){
-    int j = 0;
-    int nbTransLigne = nbTransGlobal;
-    Uint32 couleur = changeCouleur(colorChange,nbTransLigne,screen);
-    line(avant.x,avant.y,listeTransmission[0].x,listeTransmission[0].y,couleur,screen);
-    nbTransLigne += 1;
-    couleur = changeCouleur(colorChange,nbTransLigne,screen);
-    for(j=0;j<compte-1;j++){
-        line(listeTransmission[j].x,listeTransmission[j].y, listeTransmission[j+1].x,listeTransmission[j+1].y,couleur,screen);
-        nbTransLigne += 1;
-        couleur = changeCouleur(colorChange,nbTransLigne,screen);
-    }
-    line(listeTransmission[compte-1].x,listeTransmission[compte-1].y,apres.x,apres.y,couleur,screen);
-    return nbTransLigne-nbTransGlobal;
-}
-
-int transmission(int colorChange, int nbTransGlobal, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen){
+double transmission(int INC1, int INC2, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen){
+/*
+Fonction qui calcul tous les points de transmissions entre deux points. Ces points sont tries suivant la
+plus courte distance du point avant. INC sont les indices des murs qu'on ne considerent pas, ceux lies aux
+points avant et apres.
+*/
     int i = 0;
-    int nbTransLigne =0;
-    POINT transmis;
+    double coefficient = 1;
+    POINT transmis; // Variable contenant le point de transmission
     // Creation de deux tableaux dynamiques et d'une variable de comptage :
     POINT *transmission1 = NULL;
     POINT *transmission2 = NULL;
-    int compte = 0;
+    int compte = 0; // Nombre de transmission calculee et existante
     DROITE droiteDesPoints = createDroite(avant.x,avant.y,apres.x,apres.y);
     for (i = 0; i<numberWall;i++){
-        transmis = intersection(droiteDesPoints,wall[i].droite);
-        if(transExiste(avant,apres,transmis,&wall[i]) == 1){
-            transmis.x = round(transmis.x);
+        // On ne fait rien si les murs sont ceux lies aux points avant et apres
+        if (i == INC1 || i == INC2);
+        else {
+            transmis = intersection(droiteDesPoints,wall[i].droite); // On calcul le point transmis
+            transmis.x = round(transmis.x);                          // Et on l'arrondit pour coresspondre a la fenetre
             transmis.y = round(transmis.y);
-            if (transmission1 == NULL) {
-                transmission1 = transList(compte,transmis,transmission2,transmission1);
-                // On vide la memoire du tableau precedent
-                free(transmission2);
-                // On le re-implemente a NULL
-                transmission2 = NULL;
+            // On test si le point de transmission existe par rapport au longeur du mur et a la fenetre.
+            if(transExiste(avant,apres,transmis,&wall[i]) == 1){
+                if (transmission1 == NULL) {
+                    // calcul du coefficient general apres toutes les transmissions deja comptabilisees.
+                    coefficient *= coeffTrans(avant,transmis,wall[i]);
+                    // On liste un pointeur et puis l'autre. On calcul donc tous les points d'intersections
+                    // sur une ligne
+                    transmission1 = transList(compte,transmis,transmission2,transmission1);
+                    // On vide la memoire du tableau precedent
+                    free(transmission2);
+                    // On le re-implemente a NULL
+                    transmission2 = NULL;
+                }
+                else if(transmission2 == NULL && compte > 0){
+                    coefficient *= coeffTrans(avant,transmis,wall[i]);
+                    transmission2 = transList(compte,transmis,transmission1,transmission2);
+                    free(transmission1);
+                    transmission1 = NULL;
+                }
+                compte += 1;
             }
-            else if(transmission2 == NULL && compte > 0){
-                transmission2 = transList(compte,transmis,transmission1,transmission2);
-                free(transmission1);
-                transmission1 = NULL;
-            }
-            compte += 1;
         }
     }
     // Des qu'il n'y a plus de nouveaux points de transmission on regarde les deux tableaux
     // et on verifie celui ou les points de transmission sont mis.
     if (transmission1 == NULL && transmission2 != NULL) {
+        // On trie les points selon la distance avant le point avant
         transmission2 = transTrie(compte,avant,transmission2);
-        nbTransLigne = transLigne(compte,colorChange,nbTransGlobal,avant,apres,transmission2,screen);
     }
-    if(transmission2 == NULL && transmission1 != NULL){
+    else if(transmission2 == NULL && transmission1 != NULL){
         transmission1 = transTrie(compte,avant,transmission1);
-        nbTransLigne = transLigne(compte,colorChange,nbTransGlobal, avant, apres, transmission1,screen);
     }
-    else if(transmission1 == NULL && transmission2 == NULL){
-        Uint32 couleur = changeCouleur(colorChange,nbTransGlobal,screen);
-        line(avant.x,avant.y,apres.x,apres.y,couleur,screen);
-    }
-    return nbTransLigne;
+    return coefficient;
 }

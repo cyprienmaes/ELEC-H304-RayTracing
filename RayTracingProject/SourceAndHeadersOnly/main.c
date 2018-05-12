@@ -18,13 +18,19 @@
 #include "transmission.h"
 
 int main(int argc, char *argv[]) {
+    float echelle = 1.7;
     int hauteurEcran = 700; // en cm
     int largeurEcran = 1400; // en cm
     int hauteurMenu = 100;
     int largeurMenu = 1400;
 
+    double sum = 0;
+
     WALL* wall = NULL;
     TRANSMITTER *transmitter = NULL;
+    double puissance = 20; // puissance à l'emetteur (en dBm)
+    double frequence = 2.45*pow(10,9); //2.45 GHz
+
     RECEIVER *receiver = NULL;
     printf("Emetteur en rose\n");
     printf("Recepteur en jaune\n");
@@ -39,7 +45,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     // Video mode (resolution => 600x600 for example, color displaying, other parameters according to the memory)
-    screen = SDL_SetVideoMode(largeurEcran/scaling, (hauteurEcran/scaling)+hauteurMenu, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
+    screen = SDL_SetVideoMode((largeurEcran/echelle)+4, (hauteurEcran/echelle)+4+hauteurMenu, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
 
     if (screen == NULL) {
         fprintf(stderr, "Impossible de charger le mode video : %s\n", SDL_GetError());
@@ -57,19 +63,26 @@ int main(int argc, char *argv[]) {
     // Filling of the rectangle
     SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
     // Title of the main frame
-    SDL_WM_SetCaption("Projet de Ray-Tracing v0.1.0", NULL);
+    SDL_WM_SetCaption("Projet de Ray-Tracing v1.3.0", NULL);
     // Creation de la map
-    wall = MapExempleRapport1(screen, wall, largeurEcran, hauteurEcran);
+    wall = MapExempleRapport2(largeurEcran, hauteurEcran, echelle, screen, wall);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(round(100/scaling),round(300/scaling), 10,10, transmitter,screen);
-    receiver = newReceiver(round(500/scaling), round(300/scaling), 10,10, receiver, screen);
-    onde(receiver,transmitter,wall,screen);
-    // emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
+    transmitter = newTransmitter(echelle, 100, 200, 20, 20, puissance, frequence, transmitter, screen);
+    receiver = newReceiver(echelle, 1, 1100, 400, 20,20, receiver, screen);
+
+    sum = onde(echelle,receiver,transmitter,wall,screen);
+    printf("La somme au carre est donc : %.15f\n", sum);
+    double sum2 = 0.0029;
+
+    double Prx = calcul_Prx(receiver, transmitter, sum2);
+    printf("La puissance en dBm est donc : %f \n",Prx);
+
+    SDL_Flip(screen);
     // Creation d'un menu ou s'affiche certaines donnees
-    createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,screen);
+    createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);
     SDL_Flip(screen);
     // Gestion d'evenement avec la souris.
-    posSouris("GeosansLight.ttf",16,largeurMenu/(2*scaling)-50, (hauteurEcran/scaling)+(hauteurMenu/2)-10, largeurMenu/(2*scaling)+300/scaling, (hauteurEcran/scaling)+(hauteurMenu/2)-10,screen);
+    posSouris(echelle, largeurEcran, hauteurEcran, "GeosansLight.ttf",16,largeurMenu/(2*echelle)-50, hauteurEcran/echelle+4+hauteurMenu/2-10, largeurMenu/(2*echelle)+300/echelle, hauteurEcran/echelle+4+hauteurMenu/2-10,screen);
     // Deleting surface inside de memory
     freeWALL(wall);
     SDL_Flip(screen);

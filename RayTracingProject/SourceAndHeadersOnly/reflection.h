@@ -10,15 +10,16 @@
 #include "TXandRX.h"
 #include "droite.h"
 #include "transmission.h"
+#include "coefficients.h"
 
 #ifndef REFLECTION_H_INCLUDED
 #define REFLECTION_H_INCLUDED
 
-/*
-void emission(float xSource, float ySource, WALL *wall, SDL_Surface *screen);*/
+double coeffRef(POINT avant, POINT inter, WALL wall);
 POINT *premiereImage(TRANSMITTER *transmitter,WALL *wall, POINT *listeDePoints);
-void troisReflexion(POINT lePoint1, POINT lePoint2, int murNonConsiderer1, int murNonConsiderer2, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
-void deuxReflexion(POINT lePoint, int murNonConsiderer, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
-void reflexion(RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
-void onde(RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
+double troisReflexion(float echelle, POINT lePoint1, POINT lePoint2, int murNonConsiderer1, int murNonConsiderer2, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
+double deuxReflexion(float echelle, POINT lePoint, int murNonConsiderer, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
+double reflexion(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
+double onde(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
+
 #endif // REFLECTION_H_INCLUDED

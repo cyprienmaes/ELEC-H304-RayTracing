@@ -6,8 +6,6 @@
 #include <SDL/SDL.h>
 #include "droite.h"
 
-#define scaling 1.7
-
 #ifndef WALL_H_INCLUDED
 #define WALL_H_INCLUDED
 
@@ -24,27 +22,31 @@ Creation of different kinds of wall for reflexion and refraction.
     // Longueur du mur en toute generalite
     float longueur;
     float epaisseur;
+    float posReeleX;
+    float posReeleY;
     DROITE droite;
     // Position of the top left corner of a rectangle.
     SDL_Rect position;
     SDL_Surface *newWall;
 };
+void createWall(float echelle, char type, char vertical, float epaisseur, int longueur, int posX, int posY, SDL_Surface *screen, WALL *mur);
 
-void createWall(char type, char vertical, float epaisseur, float longueur, int posX, int posY, SDL_Surface *screen, WALL *mur);
+WALL *UnMur(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-WALL *DeuxMurs(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+WALL *DeuxMurs(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-WALL *UnMur(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+WALL *TroisMur(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-WALL *TroisMur(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+WALL *SquareMap(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-WALL *SquareMap(SDL_Surface *screen, WALL *wall, int largeurEcran, int hauteurEcran);
+WALL *MapUn(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-WALL *MapUn(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+WALL *MapDeux(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-WALL *MapDeux(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+WALL *MapExempleRapport1(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-WALL *MapExempleRapport(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+WALL *MapExempleRapport2(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
+
 
 
 void freeWALL(WALL *wall);

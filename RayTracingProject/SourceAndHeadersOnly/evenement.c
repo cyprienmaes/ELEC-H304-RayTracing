@@ -5,11 +5,9 @@
 #include <math.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
-#include "wall.h"
 #include "menu.h"
 
-
-void posSouris(const char* file, int taillePolice,int posXx, int posYx, int posXy, int posYy, SDL_Surface *screen) {
+void posSouris(float echelle, int largeurEcran, int hauteurEcran, const char* file, int taillePolice,int posXx, int posYx, int posXy, int posYy, SDL_Surface *screen) {
 /*
     Ecrit la position en x et en y de la souris dès qu'elle bouge de l'ecran.
 */
@@ -23,19 +21,28 @@ void posSouris(const char* file, int taillePolice,int posXx, int posYx, int posX
         SDL_WaitEvent(&bougeSouris);
         switch(bougeSouris.type) {
             case SDL_MOUSEMOTION :
-                x = bougeSouris.motion.x*scaling;
-                y = bougeSouris.motion.y*scaling;
+                x = bougeSouris.motion.x*echelle;
+                y = bougeSouris.motion.y*echelle;
                 break;
             case SDL_QUIT:
                 continuer = 0;
                 break;
         }
-        sprintf(posx, "%d",x);
-        sprintf(posy, "%d",y);
-        SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,255,255,255));
-        createText(file, taillePolice, posXy, posYy, posy, screen);
-        createText(file, taillePolice, posXx, posYx, posx, screen);
-        SDL_UpdateRect(screen, posXx, posYx, 100, 20);
-        SDL_UpdateRect(screen, posXy, posYy, 100, 20);
+        if (x < 0 || x > largeurEcran+4 || y < 0 || y > hauteurEcran) {
+            SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,255,255,255));
+            createText(file, taillePolice, posXy, posYy, "En dehors", screen);
+            createText(file, taillePolice, posXx, posYx, "En dehors", screen);
+            SDL_UpdateRect(screen, posXx, posYx, 100, 20);
+            SDL_UpdateRect(screen, posXy, posYy, 100, 20);
+        }
+        else {
+            sprintf(posx, "%d",x);
+            sprintf(posy, "%d",y);
+            SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,255,255,255));
+            createText(file, taillePolice, posXy, posYy, posy, screen);
+            createText(file, taillePolice, posXx, posYx, posx, screen);
+            SDL_UpdateRect(screen, posXx, posYx, 100, 20);
+            SDL_UpdateRect(screen, posXy, posYy, 100, 20);
+        }
     }
 }

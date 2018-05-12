@@ -17,4 +17,4 @@ void createRectangle(int posX, int posY, int largeur, int hauteur, char R, char 
 
 void createText(const char* file, int taillePolice, int posX, int posY, const char* ecrit, SDL_Surface *screen);
 
-void createMenu(const char* file, int taillePolice, int largeurMenu, int hauteurMenu, int hauteurEcran, SDL_Surface *screen);
+void createMenu(const char* file, int taillePolice, int largeurMenu, int hauteurMenu, int hauteurEcran, float echelle, SDL_Surface *screen);
