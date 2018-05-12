@@ -18,7 +18,7 @@
 #include "transmission.h"
 
 int main(int argc, char *argv[]) {
-    float echelle = 1.7;
+    float echelle = 1.2;
     int hauteurEcran = 700; // en cm
     int largeurEcran = 1400; // en cm
     int hauteurMenu = 100;
@@ -60,14 +60,20 @@ int main(int argc, char *argv[]) {
     // Filling of the rectangle
     SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
     // Title of the main frame
-    SDL_WM_SetCaption("Projet de Ray-Tracing v1.3.0", NULL);
+    SDL_WM_SetCaption("Projet de Ray-Tracing v1.4.0", NULL);
     // Creation de la map
     wall = MapDeux(largeurEcran, hauteurEcran, echelle, screen, wall);
     // Creation de l'emetteur et du recepteur.
     transmitter = newTransmitter(echelle,1200,600,20,20, transmitter,screen);
-    receiver = newReceiver(echelle,1300, 400, 20,20, receiver, screen);
+    receiver = newReceiver(echelle,1,100,200,20,20,receiver,screen);
     sum = onde(echelle,receiver,transmitter,wall,screen);
-    printf("La somme au carre est donc : %.15f\n", sum);
+    printf("La somme au carre est donc : %.12f\n", sum);
+    /*
+    receiver = zoneReception(echelle,200, 100,receiver, screen);
+    for (int i=0;i<121;i++) {
+        sum = onde(echelle,&receiver[i],transmitter,wall,screen);
+        printf("La somme au carre est donc : %.12f\n", sum);
+    }*/
     SDL_Flip(screen);
     // Creation d'un menu ou s'affiche certaines donnees
     createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);

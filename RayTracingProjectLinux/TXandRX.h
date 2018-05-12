@@ -22,6 +22,7 @@ struct TRANSMITTER{
 };
 
 struct RECEIVER{
+    char central;
     int longueur;
     int largeur;
     POINT pointCentral;
@@ -31,8 +32,11 @@ struct RECEIVER{
 
 TRANSMITTER *newTransmitter(float echelle, int xTX, int yTX, int longueur, int largeur, TRANSMITTER *transmitter, SDL_Surface *screen);
 
-RECEIVER *newReceiver(float echelle, int xRX, int yRX, int longueur, int largeur, RECEIVER *receiver, SDL_Surface *screen);
+RECEIVER *newReceiver(float echelle, char central, int xRX, int yRX, int longueur, int largeur, RECEIVER *receiver, SDL_Surface *screen);
 
+RECEIVER UnReceiver(float echelle, char central, int xRX, int yRX, int longueur, int largeur, SDL_Surface *screen);
+
+RECEIVER *zoneReception(float echelle, int xRX,int yRX,RECEIVER *receiver,SDL_Surface *screen);
 
 #endif // TXANDRX_H_INCLUDED
 

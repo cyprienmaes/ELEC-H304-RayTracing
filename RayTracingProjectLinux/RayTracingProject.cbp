@@ -35,6 +35,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="TXandRX.h" />
+		<Unit filename="coefficients.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="coefficients.h" />
+		<Unit filename="droite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="droite.h" />
 		<Unit filename="evenement.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -62,6 +70,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="reflection.h" />
+		<Unit filename="transmission.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="transmission.h" />
 		<Unit filename="wall.c">
 			<Option compilerVar="CC" />
 		</Unit>

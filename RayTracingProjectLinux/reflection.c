@@ -63,19 +63,25 @@ Dessine toutes les possibilites de faire 3 reflexions entre l'emetteur et le rec
             if (interExiste(&wall[i],inter[0],inter[1],receiver->pointCentral)==1) {
                 if (interExiste(&wall[murNonConsiderer2], inter[1], inter[2], inter[0])==1) {
                     if(interExiste(&wall[murNonConsiderer1], inter[2], transmitter->pointCentral, inter[1])==1) {
+                        // On calcul tous les coefficients du aux transmissions et on les multiplie ensemble
                         coefficient *= transmission(-1, murNonConsiderer1,transmitter->pointCentral,inter[2],wall,screen);
                         coefficient *= transmission(murNonConsiderer1,murNonConsiderer2,inter[2],inter[1],wall,screen);
                         coefficient *= transmission(murNonConsiderer2,i,inter[1],inter[0],wall,screen);
                         coefficient *= transmission(i,-1,inter[0],receiver->pointCentral,wall,screen);
+                        // On fait de meme mais avec les reflexions
                         coefficient *= coeffRef(transmitter->pointCentral,inter[2],wall[murNonConsiderer1]);
                         coefficient *= coeffRef(inter[2],inter[1],wall[murNonConsiderer2]);
                         coefficient *= coeffRef(inter[1],inter[0],wall[i]);
+                        // On calcul la distance du dernier point image au recepteur
                         dist = distance(nouvelleImage, receiver->pointCentral);
-                        sum += pow(coefficient/dist,2);
-                        line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,inter[2].x/echelle,inter[2].y/echelle,couleur,screen);
-                        line(inter[2].x/echelle,inter[2].y/echelle,inter[1].x/echelle,inter[1].y/echelle,couleur,screen);
-                        line(inter[1].x/echelle,inter[1].y/echelle,inter[0].x/echelle,inter[0].y/echelle,couleur,screen);
-                        line(inter[0].x/echelle,inter[0].y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+                        // On fait la somme sur tous les rayons qui arrivent au recepteur
+                        sum += pow(coefficient/(dist*pow(10,-2)),2);
+                        if (receiver->central == 1){
+                            line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,inter[2].x/echelle,inter[2].y/echelle,couleur,screen);
+                            line(inter[2].x/echelle,inter[2].y/echelle,inter[1].x/echelle,inter[1].y/echelle,couleur,screen);
+                            line(inter[1].x/echelle,inter[1].y/echelle,inter[0].x/echelle,inter[0].y/echelle,couleur,screen);
+                            line(inter[0].x/echelle,inter[0].y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+                        }
                         coefficient = 1;
                     }
                 }
@@ -118,10 +124,12 @@ Fonctionne sur le meme principe que troisReflexion.
                     coefficient *= coeffRef(transmitter->pointCentral,inter[1],wall[murNonConsiderer]);
                     coefficient *= coeffRef(inter[1],inter[0],wall[i]);
                     dist = distance(nouvelleImage,receiver->pointCentral);
-                    sum += pow(coefficient/dist,2);
-                    line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,inter[1].x/echelle,inter[1].y/echelle,couleur,screen);
-                    line(inter[1].x/echelle,inter[1].y/echelle,inter[0].x/echelle,inter[0].y/echelle,couleur,screen);
-                    line(inter[0].x/echelle,inter[0].y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+                    sum += pow(coefficient/(dist*pow(10,-2)),2);
+                    if (receiver->central) {
+                        line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,inter[1].x/echelle,inter[1].y/echelle,couleur,screen);
+                        line(inter[1].x/echelle,inter[1].y/echelle,inter[0].x/echelle,inter[0].y/echelle,couleur,screen);
+                        line(inter[0].x/echelle,inter[0].y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+                    }
                     coefficient = 1;
                 }
             }
@@ -179,9 +187,11 @@ double reflexion(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WA
             coefficient *= transmission(i,-1,interMurDroite,receiver->pointCentral,wall,screen);
             coefficient *= coeffRef(transmitter->pointCentral,interMurDroite,wall[i]);
             dist = distance(premierPointImage[i],receiver->pointCentral);
-            sum += pow(coefficient/dist,2);
-            line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,interMurDroite.x/echelle,interMurDroite.y/echelle,couleur,screen);
-            line(interMurDroite.x/echelle,interMurDroite.y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+            sum += pow(coefficient/(dist*pow(10,-2)),2);
+            if (receiver->central == 1){
+                line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,interMurDroite.x/echelle,interMurDroite.y/echelle,couleur,screen);
+                line(interMurDroite.x/echelle,interMurDroite.y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+            }
             coefficient = 1;
         }
         sum += deuxReflexion(echelle, premierPointImage[i],i,receiver,transmitter,wall,screen);
@@ -199,8 +209,11 @@ Onde directe arrivant de l'emetteur au recepteur.
     Uint32 couleur = SDL_MapRGB(screen->format,255,255,255); // Ligne blanche pour l'onde directe.
     coefficient = transmission(-1,-1,transmitter->pointCentral,receiver->pointCentral,wall,screen);
     dist = distance(transmitter->pointCentral,receiver->pointCentral);
-    line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
-    sum = pow(coefficient/dist,2);
+    if (receiver->central == 1){
+        // Seul le recepteur central peut avoir les lignes qui le suivent
+        line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+    }
+    sum = pow(coefficient/(dist*pow(10,-2)),2);
     sum += reflexion(echelle,receiver,transmitter,wall,screen);
     return sum;
 }
