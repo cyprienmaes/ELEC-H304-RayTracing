@@ -4,13 +4,14 @@
 #include <unistd.h>
 #include <math.h>
 #include <SDL/SDL.h>
-
-#define scaling 1
+#include "droite.h"
 
 #ifndef WALL_H_INCLUDED
 #define WALL_H_INCLUDED
+
 int numberWall;
 
+typedef struct WALL WALL;
 struct WALL{
 /*
 Creation of different kinds of wall for reflexion and refraction.
@@ -18,20 +19,29 @@ Creation of different kinds of wall for reflexion and refraction.
     float conductivity;
     float permitivity;
     char vertical;
-    int epaisseur;
-    int largeur;
+    // Longueur du mur en toute generalite
+    float longueur;
+    float epaisseur;
+    float posReeleX;
+    float posReeleY;
+    DROITE droite;
     // Position of the top left corner of a rectangle.
     SDL_Rect position;
     SDL_Surface *newWall;
 };
+void createWall(float echelle, char type, char vertical, float epaisseur, int longueur, int posX, int posY, SDL_Surface *screen, WALL *mur);
 
-typedef struct WALL WALL;
+WALL *UnMur(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-void createWall(char type, char vertical, int epaisseur, int largeur, int hauteur, int posX, int posY, SDL_Surface *screen, WALL *mur);
+WALL *DeuxMurs(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-WALL *SquareMap(SDL_Surface *screen, WALL *wall, int largeurEcran, int hauteurEcran);
+WALL *TroisMur(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
-WALL *MapUn(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+WALL *SquareMap(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
+
+WALL *MapUn(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
+
+WALL *MapDeux(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
 void freeWALL(WALL *wall);
 

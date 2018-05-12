@@ -62,15 +62,15 @@ int main(int argc, char *argv[]) {
     // Creation de la map
     wall = MapDeux(largeurEcran, hauteurEcran, echelle, screen, wall);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(echelle,1300,650,20,20, transmitter,screen);
+    transmitter = newTransmitter(echelle,1200,600,20,20, transmitter,screen);
     receiver = newReceiver(echelle,200, 250, 20,20, receiver, screen);
     onde(echelle,receiver,transmitter,wall,screen);
     SDL_Flip(screen);
     // Creation d'un menu ou s'affiche certaines donnees
-    // createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);
+    createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);
     SDL_Flip(screen);
     // Gestion d'evenement avec la souris.
-    posSouris("GeosansLight.ttf",16,round(largeurMenu/2)-50, hauteurEcran+round(hauteurMenu/2)-10, round(largeurMenu/2)+round(300/echelle), hauteurEcran+round(hauteurMenu/2)-10,screen);
+    posSouris(echelle, largeurEcran, hauteurEcran, "GeosansLight.ttf",16,largeurMenu/(2*echelle)-50, hauteurEcran/echelle+4+hauteurMenu/2-10, largeurMenu/(2*echelle)+300/echelle, hauteurEcran/echelle+4+hauteurMenu/2-10,screen);
     // Deleting surface inside de memory
     freeWALL(wall);
     SDL_Flip(screen);

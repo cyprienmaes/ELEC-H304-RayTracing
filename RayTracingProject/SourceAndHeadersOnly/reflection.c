@@ -51,10 +51,10 @@ Dessine toutes les possibilites de faire 3 reflexions entre l'emetteur et le rec
             if (interExiste(&wall[i],inter[0],inter[1],receiver->pointCentral)==1) {
                 if (interExiste(&wall[murNonConsiderer2], inter[1], inter[2], inter[0])==1) {
                     if(interExiste(&wall[murNonConsiderer1], inter[2], transmitter->pointCentral, inter[1])==1) {
-                        //transmission(-1, murNonConsiderer1,transmitter->pointCentral,inter[2],wall,screen);
-                        //transmission(murNonConsiderer1,murNonConsiderer2,inter[2],inter[1],wall,screen);
-                        //transmission(murNonConsiderer2,i,inter[1],inter[0],wall,screen);
-                        //transmission(i,-1,inter[0],receiver->pointCentral,wall,screen);
+                        transmission(-1, murNonConsiderer1,transmitter->pointCentral,inter[2],wall,screen);
+                        transmission(murNonConsiderer1,murNonConsiderer2,inter[2],inter[1],wall,screen);
+                        transmission(murNonConsiderer2,i,inter[1],inter[0],wall,screen);
+                        transmission(i,-1,inter[0],receiver->pointCentral,wall,screen);
                         line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,inter[2].x/echelle,inter[2].y/echelle,couleur,screen);
                         line(inter[2].x/echelle,inter[2].y/echelle,inter[1].x/echelle,inter[1].y/echelle,couleur,screen);
                         line(inter[1].x/echelle,inter[1].y/echelle,inter[0].x/echelle,inter[0].y/echelle,couleur,screen);
@@ -90,9 +90,9 @@ Fonctionne sur le meme principe que troisReflexion.
             inter[1].y = round(inter[1].y);
             if(interExiste(&wall[murNonConsiderer],inter[1],transmitter->pointCentral,inter[0]) == 1) {
                 if(interExiste(&wall[i],inter[0],inter[1],receiver->pointCentral) == 1){
-                    //transmission(-1, murNonConsiderer, transmitter->pointCentral,inter[1],wall,screen);
-                    //transmission(murNonConsiderer,i,inter[1],inter[0],wall,screen);
-                    //transmission(i,-1,inter[0],receiver->pointCentral,wall,screen);
+                    transmission(-1, murNonConsiderer, transmitter->pointCentral,inter[1],wall,screen);
+                    transmission(murNonConsiderer,i,inter[1],inter[0],wall,screen);
+                    transmission(i,-1,inter[0],receiver->pointCentral,wall,screen);
                     line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,inter[1].x/echelle,inter[1].y/echelle,couleur,screen);
                     line(inter[1].x/echelle,inter[1].y/echelle,inter[0].x/echelle,inter[0].y/echelle,couleur,screen);
                     line(inter[0].x/echelle,inter[0].y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
@@ -158,7 +158,7 @@ void onde(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wal
 Onde directe arrivant de l'emetteur au recepteur.
 */
     Uint32 couleur = SDL_MapRGB(screen->format,255,255,255); // Lignes rouges pour deux reflexions
-    //transmission(-1,-1,transmitter->pointCentral,receiver->pointCentral,wall,screen);
+    transmission(-1,-1,transmitter->pointCentral,receiver->pointCentral,wall,screen);
     line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
     reflexion(echelle,receiver,transmitter,wall,screen);
 }
