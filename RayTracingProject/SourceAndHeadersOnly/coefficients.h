@@ -13,12 +13,12 @@
 // Definition de quelques constantes redondantes
 #define pi 3.14159
 
-float theta_i(POINT emetteur, POINT intersect, char vertical);
+double theta_i(float x0, float y0, float x1, float y1, char vertical);
 float complex z2(float eps_rel, float sigma);
 float complex gamma_m(float eps_rel, float sigma);
-float theta_t_snell(float theta_i, float eps1, float eps2);
-float norme_coeff_reflexion(float theta_i, float eps_rel, float sigma, float epaisseur);
-float norme_coeff_transmission(float theta_i, float eps_rel, float sigma, float epaisseur);
+double theta_t_snell(double theta_i, float eps1, float eps2);
+double norme_coeff_reflexion(double theta_i, float eps_rel, float sigma, float epaisseur);
+double norme_coeff_transmission(double theta_i, float eps_rel, float sigma, float epaisseur);
 
 #endif // COEFFICIENTS_H_INCLUDED
 

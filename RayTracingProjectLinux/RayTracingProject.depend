@@ -129,7 +129,7 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1526120456 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/main.c
+1526132928 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -157,7 +157,7 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1525876855 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/line.h
+1526132098 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/line.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -165,7 +165,7 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1526118406 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/reflection.h
+1526132967 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/reflection.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -178,6 +178,7 @@
 	"TXandRX.h"
 	"droite.h"
 	"transmission.h"
+	"coefficients.h"
 
 1526118406 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/wall.h
 	<stdio.h>
@@ -197,7 +198,7 @@
 	<SDL/SDL.h>
 	"point.h"
 
-1526119041 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/reflection.c
+1526132914 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/reflection.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -211,6 +212,7 @@
 	"TXandRX.h"
 	"droite.h"
 	"transmission.h"
+	"coefficients.h"
 
 1526118406 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/TXandRX.c
 	<stdio.h>
@@ -247,7 +249,7 @@
 	<SDL/SDL.h>
 	"wall.h"
 
-1526118406 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/point.c
+1526123871 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/point.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -266,7 +268,7 @@
 	<SDL/SDL_ttf.h>
 	"wall.h"
 
-1526120359 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/evenement.c
+1526120499 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/evenement.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -312,7 +314,7 @@
 	<SDL/SDL.h>
 	"point.h"
 
-1525876872 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/coefficients.c
+1526131897 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/coefficients.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -338,7 +340,7 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1525876872 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/coefficients.h
+1526132160 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/coefficients.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -348,7 +350,7 @@
 	<complex.h>
 	"point.h"
 
-1526118406 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/transmission.h
+1526131723 /home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/transmission.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -361,8 +363,9 @@
 	"intersection.h"
 	"TXandRX.h"
 	"droite.h"
+	"coefficients.h"
 
-1526119010 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/transmission.c
+1526132276 source:/home/cyprienmaes/RayTracingProject/RayTracingProjectLinux/transmission.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -375,4 +378,5 @@
 	"intersection.h"
 	"TXandRX.h"
 	"droite.h"
+	"coefficients.h"
 

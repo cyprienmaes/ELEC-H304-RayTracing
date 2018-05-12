@@ -13,6 +13,7 @@
 #include "intersection.h"
 #include "TXandRX.h"
 #include "droite.h"
+#include "coefficients.h"
 
 char transExiste(POINT avant, POINT apres, POINT transmission, WALL *wall);
 
@@ -20,6 +21,8 @@ POINT *transList(int compte, POINT transmis, POINT *listeAvant, POINT *listeApre
 
 POINT *transTrie(int compte, POINT avant, POINT *liste);
 
-void transmission(int INC1, int INC2, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen);
+double coeffTrans(POINT avant, POINT transmis, WALL wall);
+
+double transmission(int INC1, int INC2, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen);
 
 #endif // TRANSMISSION_H_INCLUDED

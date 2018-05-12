@@ -24,6 +24,8 @@ int main(int argc, char *argv[]) {
     int hauteurMenu = 100;
     int largeurMenu = 1400;
 
+    double sum = 0;
+
     WALL* wall = NULL;
     TRANSMITTER *transmitter = NULL;
     RECEIVER *receiver = NULL;
@@ -63,8 +65,9 @@ int main(int argc, char *argv[]) {
     wall = MapDeux(largeurEcran, hauteurEcran, echelle, screen, wall);
     // Creation de l'emetteur et du recepteur.
     transmitter = newTransmitter(echelle,1200,600,20,20, transmitter,screen);
-    receiver = newReceiver(echelle,200, 250, 20,20, receiver, screen);
-    onde(echelle,receiver,transmitter,wall,screen);
+    receiver = newReceiver(echelle,1300, 400, 20,20, receiver, screen);
+    sum = onde(echelle,receiver,transmitter,wall,screen);
+    printf("La somme au carre est donc : %.15f\n", sum);
     SDL_Flip(screen);
     // Creation d'un menu ou s'affiche certaines donnees
     createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);

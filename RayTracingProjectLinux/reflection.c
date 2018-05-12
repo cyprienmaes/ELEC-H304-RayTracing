@@ -11,11 +11,23 @@
 #include "TXandRX.h"
 #include "droite.h"
 #include "transmission.h"
+#include "coefficients.h"
 
-void troisReflexion(float echelle, POINT lePoint1, POINT lePoint2, int murNonConsiderer1, int murNonConsiderer2, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen) {
+double coeffRef(POINT avant, POINT inter, WALL wall) {
+    double theta;
+    double coeff;
+    theta = theta_i(avant.x,avant.y,inter.x,inter.y,wall.vertical);
+    coeff = norme_coeff_reflexion(theta,wall.permitivity,wall.conductivity,wall.epaisseur);
+    return coeff;
+}
+
+double troisReflexion(float echelle, POINT lePoint1, POINT lePoint2, int murNonConsiderer1, int murNonConsiderer2, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen) {
 /*
 Dessine toutes les possibilites de faire 3 reflexions entre l'emetteur et le recepteur.
 */
+    double coefficient = 1;
+    float dist = 0;
+    double sum = 0;
     Uint32 couleur = SDL_MapRGB(screen->format,0,0,255); // Lignes bleues pour trois reflexions
     POINT nouvelleImage;      // Variable qui recoit le point image
     POINT inter[3];           // Variable contenant les trois points de reflexions de l'emetteur au recepteur
@@ -51,26 +63,36 @@ Dessine toutes les possibilites de faire 3 reflexions entre l'emetteur et le rec
             if (interExiste(&wall[i],inter[0],inter[1],receiver->pointCentral)==1) {
                 if (interExiste(&wall[murNonConsiderer2], inter[1], inter[2], inter[0])==1) {
                     if(interExiste(&wall[murNonConsiderer1], inter[2], transmitter->pointCentral, inter[1])==1) {
-                        transmission(-1, murNonConsiderer1,transmitter->pointCentral,inter[2],wall,screen);
-                        transmission(murNonConsiderer1,murNonConsiderer2,inter[2],inter[1],wall,screen);
-                        transmission(murNonConsiderer2,i,inter[1],inter[0],wall,screen);
-                        transmission(i,-1,inter[0],receiver->pointCentral,wall,screen);
+                        coefficient *= transmission(-1, murNonConsiderer1,transmitter->pointCentral,inter[2],wall,screen);
+                        coefficient *= transmission(murNonConsiderer1,murNonConsiderer2,inter[2],inter[1],wall,screen);
+                        coefficient *= transmission(murNonConsiderer2,i,inter[1],inter[0],wall,screen);
+                        coefficient *= transmission(i,-1,inter[0],receiver->pointCentral,wall,screen);
+                        coefficient *= coeffRef(transmitter->pointCentral,inter[2],wall[murNonConsiderer1]);
+                        coefficient *= coeffRef(inter[2],inter[1],wall[murNonConsiderer2]);
+                        coefficient *= coeffRef(inter[1],inter[0],wall[i]);
+                        dist = distance(nouvelleImage, receiver->pointCentral);
+                        sum += pow(coefficient/dist,2);
                         line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,inter[2].x/echelle,inter[2].y/echelle,couleur,screen);
                         line(inter[2].x/echelle,inter[2].y/echelle,inter[1].x/echelle,inter[1].y/echelle,couleur,screen);
                         line(inter[1].x/echelle,inter[1].y/echelle,inter[0].x/echelle,inter[0].y/echelle,couleur,screen);
                         line(inter[0].x/echelle,inter[0].y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+                        coefficient = 1;
                     }
                 }
             }
         }
     }
+    return sum;
 }
 
-void deuxReflexion(float echelle, POINT lePoint, int murNonConsiderer, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen) {
+double deuxReflexion(float echelle, POINT lePoint, int murNonConsiderer, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen) {
 /*
 Dessine toutes les possibilites de faire 2 reflexions entre l'emetteur et le recepteur.
 Fonctionne sur le meme principe que troisReflexion.
 */
+    double coefficient = 1;
+    float dist = 0;
+    double sum = 0;
     Uint32 couleur = SDL_MapRGB(screen->format,0,255,0); // Lignes vertes pour deux reflexions
     POINT nouvelleImage;
     POINT inter[2];
@@ -90,19 +112,25 @@ Fonctionne sur le meme principe que troisReflexion.
             inter[1].y = round(inter[1].y);
             if(interExiste(&wall[murNonConsiderer],inter[1],transmitter->pointCentral,inter[0]) == 1) {
                 if(interExiste(&wall[i],inter[0],inter[1],receiver->pointCentral) == 1){
-                    transmission(-1, murNonConsiderer, transmitter->pointCentral,inter[1],wall,screen);
-                    transmission(murNonConsiderer,i,inter[1],inter[0],wall,screen);
-                    transmission(i,-1,inter[0],receiver->pointCentral,wall,screen);
+                    coefficient *= transmission(-1, murNonConsiderer, transmitter->pointCentral,inter[1],wall,screen);
+                    coefficient *= transmission(murNonConsiderer,i,inter[1],inter[0],wall,screen);
+                    coefficient *= transmission(i,-1,inter[0],receiver->pointCentral,wall,screen);
+                    coefficient *= coeffRef(transmitter->pointCentral,inter[1],wall[murNonConsiderer]);
+                    coefficient *= coeffRef(inter[1],inter[0],wall[i]);
+                    dist = distance(nouvelleImage,receiver->pointCentral);
+                    sum += pow(coefficient/dist,2);
                     line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,inter[1].x/echelle,inter[1].y/echelle,couleur,screen);
                     line(inter[1].x/echelle,inter[1].y/echelle,inter[0].x/echelle,inter[0].y/echelle,couleur,screen);
                     line(inter[0].x/echelle,inter[0].y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+                    coefficient = 1;
                 }
             }
             // On envoie le point de symetrie de la premiere image et la nouvelleImage calculee
             // dans troisReflexion
-            troisReflexion(echelle,lePoint,nouvelleImage,murNonConsiderer,i,receiver,transmitter,wall,screen);
+            sum += troisReflexion(echelle,lePoint,nouvelleImage,murNonConsiderer,i,receiver,transmitter,wall,screen);
         }
     }
+    return sum;
 }
 
 POINT *premiereImage(TRANSMITTER *transmitter,WALL *wall, POINT *listeDePoints){
@@ -123,11 +151,14 @@ POINT *premiereImage(TRANSMITTER *transmitter,WALL *wall, POINT *listeDePoints){
     return listeDePoints;
 }
 
-void reflexion(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen){
+double reflexion(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen){
 /*
     Dessine toutes les possibilites de faire 1 reflexion entre l'emetteur et le recepteur.
     Fonctionne sur le meme principe que deuxReflexion.
 */
+    double coefficient = 1;
+    float dist = 0;
+    double sum = 0;
     Uint32 couleur = SDL_MapRGB(screen->format,255,0,0); // Lignes rouges pour deux reflexions
     int i = 0;
     // On creer les points associes a la premiere image de l'emmeteur
@@ -144,21 +175,32 @@ void reflexion(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL
         interMurDroite.x = round(interMurDroite.x);
         interMurDroite.y = round(interMurDroite.y);
         if (interExiste(&wall[i],interMurDroite, transmitter->pointCentral, receiver->pointCentral)==1) {;
-            transmission(-1,i,transmitter->pointCentral,interMurDroite,wall,screen);
-            transmission(i,-1,interMurDroite,receiver->pointCentral,wall,screen);
+            coefficient *= transmission(-1,i,transmitter->pointCentral,interMurDroite,wall,screen);
+            coefficient *= transmission(i,-1,interMurDroite,receiver->pointCentral,wall,screen);
+            coefficient *= coeffRef(transmitter->pointCentral,interMurDroite,wall[i]);
+            dist = distance(premierPointImage[i],receiver->pointCentral);
+            sum += pow(coefficient/dist,2);
             line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,interMurDroite.x/echelle,interMurDroite.y/echelle,couleur,screen);
             line(interMurDroite.x/echelle,interMurDroite.y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
+            coefficient = 1;
         }
-        deuxReflexion(echelle, premierPointImage[i],i,receiver,transmitter,wall,screen);
+        sum += deuxReflexion(echelle, premierPointImage[i],i,receiver,transmitter,wall,screen);
     }
+    return sum;
 }
 
-void onde(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen){
+double onde(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen){
 /*
 Onde directe arrivant de l'emetteur au recepteur.
 */
-    Uint32 couleur = SDL_MapRGB(screen->format,255,255,255); // Lignes rouges pour deux reflexions
-    transmission(-1,-1,transmitter->pointCentral,receiver->pointCentral,wall,screen);
+    double coefficient = 1;
+    float dist = 0;
+    double sum = 0;
+    Uint32 couleur = SDL_MapRGB(screen->format,255,255,255); // Ligne blanche pour l'onde directe.
+    coefficient = transmission(-1,-1,transmitter->pointCentral,receiver->pointCentral,wall,screen);
+    dist = distance(transmitter->pointCentral,receiver->pointCentral);
     line(transmitter->pointCentral.x/echelle,transmitter->pointCentral.y/echelle,receiver->pointCentral.x/echelle,receiver->pointCentral.y/echelle,couleur,screen);
-    reflexion(echelle,receiver,transmitter,wall,screen);
+    sum = pow(coefficient/dist,2);
+    sum += reflexion(echelle,receiver,transmitter,wall,screen);
+    return sum;
 }
