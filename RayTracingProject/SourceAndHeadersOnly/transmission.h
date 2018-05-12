@@ -14,16 +14,12 @@
 #include "TXandRX.h"
 #include "droite.h"
 
-char transExiste(POINT avant, POINT apres, POINT transmission, WALL wall);
+char transExiste(POINT avant, POINT apres, POINT transmission, WALL *wall);
 
 POINT *transList(int compte, POINT transmis, POINT *listeAvant, POINT *listeApres);
 
 POINT *transTrie(int compte, POINT avant, POINT *liste);
 
-Uint32 changeCouleur(int changement,int nbTrans,SDL_Surface *screen);
-
-int transLigne(int compte, int colorChange, int nbTransGlobal, POINT avant, POINT apres, POINT *listeTransmission, SDL_Surface *screen);
-
-int transmission(int colorChange, int nbTransGlobal, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen);
+void transmission(int INC1, int INC2, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen);
 
 #endif // TRANSMISSION_H_INCLUDED

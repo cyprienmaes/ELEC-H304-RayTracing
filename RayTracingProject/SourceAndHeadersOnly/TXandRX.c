@@ -25,29 +25,29 @@ struct RECEIVER{
     SDL_Surface *newRECEIVER;
 };
 
-TRANSMITTER *newTransmitter(int xTX, int yTX, int longueur, int largeur, TRANSMITTER *transmitter, SDL_Surface *screen){
+TRANSMITTER *newTransmitter(float echelle, int xTX, int yTX, int longueur, int largeur, TRANSMITTER *transmitter, SDL_Surface *screen){
     transmitter = malloc(sizeof(TRANSMITTER));
-    transmitter->position.x = xTX-largeur/2;
-    transmitter->position.y = yTX-longueur/2;
+    transmitter->position.x = round(xTX/echelle)-round(largeur/(2*echelle));
+    transmitter->position.y = round(yTX/echelle)-round(longueur/(2*echelle));
     transmitter->longueur = longueur;
     transmitter->largeur = largeur;
-    transmitter->pointCentral.x = transmitter->position.x+transmitter->largeur/2;
-    transmitter->pointCentral.y = transmitter->position.y+transmitter->longueur/2;
-    transmitter->newTRANSMITTER = SDL_CreateRGBSurface(SDL_SWSURFACE, 10, 10, 32, 0, 0, 0, 0);
+    transmitter->pointCentral.x = xTX;
+    transmitter->pointCentral.y = yTX;
+    transmitter->newTRANSMITTER = SDL_CreateRGBSurface(SDL_SWSURFACE, longueur/echelle, largeur/echelle, 32, 0, 0, 0, 0);
     SDL_FillRect(transmitter->newTRANSMITTER, NULL, SDL_MapRGB(screen->format, 252, 56, 237));
     SDL_BlitSurface(transmitter->newTRANSMITTER, NULL, screen, &transmitter->position);
     return transmitter;
 }
 
-RECEIVER *newReceiver(int xRX, int yRX, int longueur, int largeur, RECEIVER *receiver, SDL_Surface *screen) {
+RECEIVER *newReceiver(float echelle, int xRX, int yRX, int longueur, int largeur, RECEIVER *receiver, SDL_Surface *screen) {
     receiver = malloc(sizeof(RECEIVER));
     receiver->largeur = largeur;
     receiver->longueur = longueur;
-    receiver->position.x = xRX-largeur/2;
-    receiver->position.y = yRX-largeur/2;
-    receiver->pointCentral.x = receiver->position.x+receiver->largeur/2;
-    receiver->pointCentral.y = receiver->position.y+receiver->longueur/2;
-    receiver->newRECEIVER = SDL_CreateRGBSurface(SDL_SWSURFACE, 10, 10, 32, 0, 0, 0, 0);
+    receiver->position.x = round(xRX/echelle)-round(largeur/(2*echelle));
+    receiver->position.y = round(yRX/echelle)-round(longueur/(2*echelle));
+    receiver->pointCentral.x = xRX;
+    receiver->pointCentral.y = yRX;
+    receiver->newRECEIVER = SDL_CreateRGBSurface(SDL_SWSURFACE, longueur/echelle,largeur/echelle, 32, 0, 0, 0, 0);
     SDL_FillRect(receiver->newRECEIVER, NULL, SDL_MapRGB(screen->format, 215, 220, 10));
     SDL_BlitSurface(receiver->newRECEIVER, NULL, screen, &receiver->position);
     return receiver;

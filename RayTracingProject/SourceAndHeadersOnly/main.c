@@ -18,6 +18,7 @@
 #include "transmission.h"
 
 int main(int argc, char *argv[]) {
+    float echelle = 1.7;
     int hauteurEcran = 700; // en cm
     int largeurEcran = 1400; // en cm
     int hauteurMenu = 100;
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     // Video mode (resolution => 600x600 for example, color displaying, other parameters according to the memory)
-    screen = SDL_SetVideoMode(largeurEcran/scaling, (hauteurEcran/scaling)+hauteurMenu, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
+    screen = SDL_SetVideoMode((largeurEcran/echelle)+4, (hauteurEcran/echelle)+4+hauteurMenu, 32, SDL_SWSURFACE | SDL_DOUBLEBUF);
 
     if (screen == NULL) {
         fprintf(stderr, "Impossible de charger le mode video : %s\n", SDL_GetError());
@@ -57,19 +58,19 @@ int main(int argc, char *argv[]) {
     // Filling of the rectangle
     SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
     // Title of the main frame
-    SDL_WM_SetCaption("Projet de Ray-Tracing v0.1.0", NULL);
+    SDL_WM_SetCaption("Projet de Ray-Tracing v1.3.0", NULL);
     // Creation de la map
-    wall = MapDeux(screen, wall, largeurEcran, hauteurEcran);
+    wall = MapDeux(largeurEcran, hauteurEcran, echelle, screen, wall);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(round(1300/scaling),round(650/scaling),10,10, transmitter,screen);
-    receiver = newReceiver(round(1100/scaling), round(250/scaling), 10,10, receiver, screen);
-    onde(receiver,transmitter,wall,screen);
-    // emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
+    transmitter = newTransmitter(echelle,1300,650,20,20, transmitter,screen);
+    receiver = newReceiver(echelle,200, 250, 20,20, receiver, screen);
+    onde(echelle,receiver,transmitter,wall,screen);
+    SDL_Flip(screen);
     // Creation d'un menu ou s'affiche certaines donnees
-    createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,screen);
+    // createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);
     SDL_Flip(screen);
     // Gestion d'evenement avec la souris.
-    posSouris("GeosansLight.ttf",16,largeurMenu/(2*scaling)-50, (hauteurEcran/scaling)+(hauteurMenu/2)-10, largeurMenu/(2*scaling)+300/scaling, (hauteurEcran/scaling)+(hauteurMenu/2)-10,screen);
+    posSouris("GeosansLight.ttf",16,round(largeurMenu/2)-50, hauteurEcran+round(hauteurMenu/2)-10, round(largeurMenu/2)+round(300/echelle), hauteurEcran+round(hauteurMenu/2)-10,screen);
     // Deleting surface inside de memory
     freeWALL(wall);
     SDL_Flip(screen);

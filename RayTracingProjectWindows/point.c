@@ -29,8 +29,8 @@ POINT image(POINT reel, WALL *wall){
     // On sait que la largeur des mur fait 4, pour avoir le centre du mur
     // on fait -2
     sens = wall->vertical;
-    dx = reel.x - (float)(wall->position.x);
-    dy = reel.y - (float)(wall->position.y);
+    dx = reel.x - (float)(wall->posReeleX);
+    dy = reel.y - (float)(wall->posReeleY);
     if (sens == 1) {
         point.x = reel.x - 2*dx;
         point.y = reel.y;

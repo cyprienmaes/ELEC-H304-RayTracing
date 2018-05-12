@@ -15,14 +15,25 @@ POINT intersection(DROITE droite1, DROITE droite2){
     float b1 = droite1.y0 - m1*droite1.x0;
     float b2 = droite2.y0 - m2*droite2.x0;
 
-    if(droite1.x1-droite1.x0 == 0 && droite2.x1-droite2.x0 != 0){
+    if(droite1.x1-droite1.x0 == 0 && droite2.x1-droite2.x0 != 0){ //droite1 verticale
         intersect.x = droite1.x0;
         intersect.y = m2*(intersect.x)+b2;
     }
 
-    else if(droite1.x1-droite1.x0 != 0 && droite2.x1-droite2.x0 == 0){
+
+    else if(droite1.x1-droite1.x0 != 0 && droite2.x1-droite2.x0 == 0){ // droite2 verticale
         intersect.x = droite2.x0;
         intersect.y = m1*(intersect.x)+b1;
+    }
+
+    else if(droite1.y1-droite1.y0 == 0 && droite2.y1-droite2.y0 != 0){ //droite1 horizontale
+        intersect.y = droite1.y0;
+        intersect.x = (intersect.y - b2)/m2;
+    }
+
+    else if(droite1.y1-droite1.y0 != 0 && droite2.y1-droite2.y0 == 0){ //droite2 horizontale
+        intersect.y = droite2.y0;
+        intersect.x = (intersect.y - b1)/m1;
     }
 
     // Si le produit vectoriel n'est pas nul
@@ -42,26 +53,29 @@ char interExiste(WALL *wall, POINT inter, POINT debutReflexion, POINT finReflexi
     char sens = wall->vertical;
     char ok;
     // On verifie d'abord le sens du mur.
-    if (sens == 1) {
-        // On verifie que l'intersection est bien sur le mur et pas ailleurs;
-        if (inter.y < wall->position.y || inter.y > wall->position.y+wall->longueur) ok = 0;
-        // Si c'est le cas, il faut encore verifier que les deux points qui vont donner le debut
-        // et la fin de la reflexion se trouver du meme cote du mur.
-        else {
-            if ((inter.x < debutReflexion.x && inter.x < finReflexion.x) || (inter.x > debutReflexion.x && inter.x > finReflexion.x)) {
-                ok = 1;
-            }
-            else ok = 0;
-        }
-    }
+    if (inter.x < 0 || inter.y < 0) ok = 0;
     else {
-        // On refait la meme chose mais dans le cas ou le mur est horizontal.
-        if (inter.x < wall->position.x || inter.x > wall->position.x+wall->longueur) ok = 0;
-        else {
-            if ((inter.y < debutReflexion.y && inter.y < finReflexion.y) || (inter.y > debutReflexion.y && inter.y > finReflexion.y)) {
-                ok = 1;
+        if (sens == 1) {
+            // On verifie que l'intersection est bien sur le mur et pas ailleurs;
+            if (inter.y < wall->posReeleY || inter.y > wall->posReeleY+wall->longueur) ok = 0;
+            // Si c'est le cas, il faut encore verifier que les deux points qui vont donner le debut
+            // et la fin de la reflexion se trouver du meme cote du mur.
+            else {
+                if ((inter.x < debutReflexion.x && inter.x < finReflexion.x) || (inter.x > debutReflexion.x && inter.x > finReflexion.x)) {
+                    ok = 1;
+                }
+                else ok = 0;
             }
-            else ok = 0;
+        }
+        else {
+            // On refait la meme chose mais dans le cas ou le mur est horizontal.
+            if (inter.x < wall->posReeleX || inter.x > wall->posReeleX+wall->longueur) ok = 0;
+            else {
+                if ((inter.y < debutReflexion.y && inter.y < finReflexion.y) || (inter.y > debutReflexion.y && inter.y > finReflexion.y)) {
+                    ok = 1;
+                }
+                else ok = 0;
+            }
         }
     }
     return ok;

@@ -207,7 +207,7 @@
 	<SDL/SDL_ttf.h>
 	"menu.h"
 
-1524930210 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\menu.h
+1526043494 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\menu.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -216,7 +216,7 @@
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
 
-1525876430 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\intersection.c
+1526121084 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\intersection.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -234,7 +234,7 @@
 	<SDL/SDL.h>
 	"wall.h"
 
-1525962909 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\wall.h
+1526114366 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\wall.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -259,7 +259,7 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1524930210 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\menu.c
+1526054613 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\menu.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -269,7 +269,7 @@
 	<SDL/SDL_ttf.h>
 	"wall.h"
 
-1525876430 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\point.c
+1526114660 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\point.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -278,7 +278,7 @@
 	<SDL/SDL.h>
 	"wall.h"
 
-1525992121 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\reflection.c
+1526121117 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\reflection.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -310,7 +310,7 @@
 	<SDL/SDL.h>
 	"point.h"
 
-1525876430 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\txandrx.h
+1526064001 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\txandrx.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -319,7 +319,7 @@
 	<SDL/SDL.h>
 	"point.h"
 
-1525952512 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\transmission.h
+1526058178 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\transmission.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -333,7 +333,7 @@
 	"TXandRX.h"
 	"droite.h"
 
-1525992351 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\transmission.c
+1526058124 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\transmission.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -347,7 +347,7 @@
 	"TXandRX.h"
 	"droite.h"
 
-1525876430 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\txandrx.c
+1526064205 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\txandrx.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -356,7 +356,7 @@
 	<SDL/SDL.h>
 	"point.h"
 
-1526026728 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\wall.c
+1526115551 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\wall.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -365,7 +365,7 @@
 	<SDL/SDL.h>
 	"droite.h"
 
-1526026744 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\main.c
+1526116506 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -395,7 +395,7 @@
 	<complex.h>
 	"point.h"
 
-1525965295 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\reflection.h
+1526120740 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\reflection.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
