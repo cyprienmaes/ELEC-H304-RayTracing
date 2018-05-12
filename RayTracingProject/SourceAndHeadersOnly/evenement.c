@@ -5,7 +5,9 @@
 #include <math.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
+#include "wall.h"
 #include "menu.h"
+
 
 void posSouris(const char* file, int taillePolice,int posXx, int posYx, int posXy, int posYy, SDL_Surface *screen) {
 /*
@@ -21,8 +23,8 @@ void posSouris(const char* file, int taillePolice,int posXx, int posYx, int posX
         SDL_WaitEvent(&bougeSouris);
         switch(bougeSouris.type) {
             case SDL_MOUSEMOTION :
-                x = bougeSouris.motion.x;
-                y = bougeSouris.motion.y;
+                x = bougeSouris.motion.x*scaling;
+                y = bougeSouris.motion.y*scaling;
                 break;
             case SDL_QUIT:
                 continuer = 0;

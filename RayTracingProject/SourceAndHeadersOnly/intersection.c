@@ -15,14 +15,25 @@ POINT intersection(DROITE droite1, DROITE droite2){
     float b1 = droite1.y0 - m1*droite1.x0;
     float b2 = droite2.y0 - m2*droite2.x0;
 
-    if(droite1.x1-droite1.x0 == 0 && droite2.x1-droite2.x0 != 0){
+    if(droite1.x1-droite1.x0 == 0 && droite2.x1-droite2.x0 != 0){ //droite1 verticale
         intersect.x = droite1.x0;
         intersect.y = m2*(intersect.x)+b2;
     }
 
-    else if(droite1.x1-droite1.x0 != 0 && droite2.x1-droite2.x0 == 0){
+
+    else if(droite1.x1-droite1.x0 != 0 && droite2.x1-droite2.x0 == 0){ // droite2 verticale
         intersect.x = droite2.x0;
         intersect.y = m1*(intersect.x)+b1;
+    }
+
+    else if(droite1.y1-droite1.y0 == 0 && droite2.y1-droite2.y0 != 0){ //droite1 horizontale
+        intersect.y = droite1.y0;
+        intersect.x = (intersect.y - b2)/m2;
+    }
+
+    else if(droite1.y1-droite1.y0 != 0 && droite2.y1-droite2.y0 == 0){ //droite2 horizontale
+        intersect.y = droite2.y0;
+        intersect.x = (intersect.y - b1)/m1;
     }
 
     // Si le produit vectoriel n'est pas nul

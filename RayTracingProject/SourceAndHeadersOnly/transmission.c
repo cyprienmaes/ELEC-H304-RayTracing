@@ -62,31 +62,45 @@ POINT *transTrie(int compte, POINT avant, POINT *liste){
     return liste;
 }
 
-void changeCouleur(int changement,Uint8*r,Uint8*v,Uint8*b){
+Uint32 changeCouleur(int changement,int nbTrans,SDL_Surface *screen){
+    Uint32 color;
     switch (changement) {
+        case 0 :
+            color = SDL_MapRGB(screen->format,255-(nbTrans*55),255-(nbTrans*55),255-(nbTrans*55));
+            break;
         case 1 :
             // Il ne devrait a priori pas avoir plus de 5 transmissions
-            *v +=55;
+            color = SDL_MapRGB(screen->format,255,nbTrans*55,0);
+            break;
         case 2 :
-            *r +=55;
+            color = SDL_MapRGB(screen->format,nbTrans*55,0,255);
+            break;
         case 3 :
-            *b +=55;
+            color = SDL_MapRGB(screen->format,0,255,nbTrans*55);
+            break;
     }
+    return color;
 }
 
-void transLigne(int compte, int colorChange, POINT avant, POINT apres, POINT *listeTransmission, Uint8*r, Uint8*v, Uint8*b, SDL_Surface *screen){
+int transLigne(int compte, int colorChange, int nbTransGlobal, POINT avant, POINT apres, POINT *listeTransmission, SDL_Surface *screen){
     int j = 0;
-    line(avant.x,avant.y,listeTransmission[0].x,listeTransmission[0].y,SDL_MapRGB(screen->format,*r,*v,*b),screen);
-    changeCouleur(colorChange,r,v,b);
+    int nbTransLigne = nbTransGlobal;
+    Uint32 couleur = changeCouleur(colorChange,nbTransLigne,screen);
+    line(avant.x,avant.y,listeTransmission[0].x,listeTransmission[0].y,couleur,screen);
+    nbTransLigne += 1;
+    couleur = changeCouleur(colorChange,nbTransLigne,screen);
     for(j=0;j<compte-1;j++){
-        line(listeTransmission[j].x,listeTransmission[j].y, listeTransmission[j+1].x,listeTransmission[j+1].y,SDL_MapRGB(screen->format,*r,*v,*b),screen);
-        changeCouleur(colorChange,r,v,b);
+        line(listeTransmission[j].x,listeTransmission[j].y, listeTransmission[j+1].x,listeTransmission[j+1].y,couleur,screen);
+        nbTransLigne += 1;
+        couleur = changeCouleur(colorChange,nbTransLigne,screen);
     }
-    line(listeTransmission[compte-1].x,listeTransmission[compte-1].y,apres.x,apres.y,SDL_MapRGB(screen->format,*r,*v,*b),screen);
+    line(listeTransmission[compte-1].x,listeTransmission[compte-1].y,apres.x,apres.y,couleur,screen);
+    return nbTransLigne-nbTransGlobal;
 }
 
-void transmission(int colorChange, POINT avant, POINT apres, Uint8 *rouge,Uint8 *vert,Uint8 *bleu, WALL *wall, SDL_Surface *screen){
+int transmission(int colorChange, int nbTransGlobal, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen){
     int i = 0;
+    int nbTransLigne =0;
     POINT transmis;
     // Creation de deux tableaux dynamiques et d'une variable de comptage :
     POINT *transmission1 = NULL;
@@ -96,6 +110,8 @@ void transmission(int colorChange, POINT avant, POINT apres, Uint8 *rouge,Uint8 
     for (i = 0; i<numberWall;i++){
         transmis = intersection(droiteDesPoints,wall[i].droite);
         if(transExiste(avant,apres,transmis,&wall[i]) == 1){
+            transmis.x = round(transmis.x);
+            transmis.y = round(transmis.y);
             if (transmission1 == NULL) {
                 transmission1 = transList(compte,transmis,transmission2,transmission1);
                 // On vide la memoire du tableau precedent
@@ -115,13 +131,15 @@ void transmission(int colorChange, POINT avant, POINT apres, Uint8 *rouge,Uint8 
     // et on verifie celui ou les points de transmission sont mis.
     if (transmission1 == NULL && transmission2 != NULL) {
         transmission2 = transTrie(compte,avant,transmission2);
-        transLigne(compte,colorChange,avant,apres,transmission2,rouge,vert,bleu,screen);
+        nbTransLigne = transLigne(compte,colorChange,nbTransGlobal,avant,apres,transmission2,screen);
     }
     if(transmission2 == NULL && transmission1 != NULL){
         transmission1 = transTrie(compte,avant,transmission1);
-        transLigne(compte,colorChange, avant, apres, transmission1,rouge,vert,bleu,screen);
+        nbTransLigne = transLigne(compte,colorChange,nbTransGlobal, avant, apres, transmission1,screen);
     }
     else if(transmission1 == NULL && transmission2 == NULL){
-        line(avant.x,avant.y,apres.x,apres.y,SDL_MapRGB(screen->format,*rouge,*vert,*bleu),screen);
+        Uint32 couleur = changeCouleur(colorChange,nbTransGlobal,screen);
+        line(avant.x,avant.y,apres.x,apres.y,couleur,screen);
     }
+    return nbTransLigne;
 }

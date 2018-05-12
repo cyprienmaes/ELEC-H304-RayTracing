@@ -63,7 +63,7 @@ void createWall(char type, char vertical, float epaisseur, float longueur, int p
             break;
         case 3 :
             // beton
-            mur->conductivity = 0.14;
+            mur->conductivity = 0.014;
             mur->permitivity = 5;
             SDL_FillRect(mur->newWall, NULL, SDL_MapRGB(screen->format, 90, 90, 90));
             break;
@@ -82,8 +82,16 @@ WALL *DeuxMurs(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap) 
     return wall;
 }
 
+WALL *UnMur(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap) {
+    numberWall = 1;
+    wall = malloc(numberWall*sizeof(WALL));
+    if (wall == NULL) exit(0);
+    createWall(1,1,0,(hauteurMap/scaling)-8,(largeurMap/scaling)/2,4,screen,&wall[0]);
+    return wall;
+}
+
 WALL *TroisMur(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap) {
-    numberWall = 5;
+    numberWall = 4;
     wall = malloc(numberWall*sizeof(WALL));
     if (wall == NULL) exit(0);
     int i = 0;
@@ -92,7 +100,6 @@ WALL *TroisMur(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap) 
     }
     createWall(1,1,0,(hauteurMap/scaling)-8,(largeurMap/scaling)/2,4,screen,&wall[2]);
     createWall(1,1,0,(hauteurMap/scaling)-8,(largeurMap/scaling)/2+100,4,screen,&wall[3]);
-    createWall(1,1,0,(hauteurMap/scaling)-8,(largeurMap/scaling)-4,4,screen,&wall[4]);
     return wall;
 }
 
@@ -132,6 +139,54 @@ Creation d'un plan d'etage plus ou moins realiste
     createWall(2,1,0,40/scaling,600/scaling,316/scaling,screen,&wall[9]);
     createWall(2,0,0,60/scaling,600/scaling,(360/scaling)-4,screen,&wall[10]);
     createWall(2,0,0,(384/scaling)-4,736/scaling,(360/scaling)-4,screen,&wall[11]);
+    return wall;
+}
+
+WALL *MapDeux(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap){
+    numberWall = 18;
+    wall = malloc(numberWall*sizeof(WALL));
+    // Les 4 murs exterieurs ont en betons
+    createWall(3,0,19e-2,largeurMap/scaling,0, 0,screen,&wall[0]);
+    createWall(3,0,19e-2,largeurMap/scaling,0, (hauteurMap/scaling)-4,screen,&wall[1]);
+    createWall(3,1,19e-2,(hauteurMap/scaling)-8,(largeurMap/scaling)-4,4,screen,&wall[2]);
+    createWall(3,1,19e-2,325/scaling,0,4,screen,&wall[3]);
+    createWall(3,1,19e-2,((hauteurMap-425)-4)/scaling,0,425/scaling,screen,&wall[4]);
+    // Les murs interieurs sont presque tous en cloisons
+    createWall(2,0,13e-2,175/scaling,1,300/scaling,screen,&wall[5]);
+    createWall(2,0,13e-2,175/scaling+4,276/scaling,300/scaling,screen,&wall[6]);
+    createWall(2,1,15e-2,299/scaling,451/scaling,1,screen,&wall[7]);
+    createWall(2,0,13e-2,75/scaling,452/scaling,200/scaling,screen,&wall[8]);
+    createWall(2,0,13e-2,104/scaling,627/scaling,200/scaling,screen,&wall[9]);
+    createWall(2,1,15e-2,199/scaling,702/scaling,1,screen,&wall[10]);
+    createWall(2,0,13e-2,25/scaling,831/scaling,200/scaling,screen,&wall[11]);
+    createWall(2,1,15e-2,299/scaling,856/scaling,1,screen,&wall[12]);
+    createWall(2,0,13e-2,100/scaling,856/scaling,300/scaling,screen,&wall[13]);
+    createWall(2,0,13e-2,340/scaling,1056/scaling,300/scaling,screen,&wall[14]);
+    // mur en brique
+    createWall(1,0,20e-2,750/scaling,1,450/scaling,screen,&wall[15]);
+    createWall(1,1,20e-2,244/scaling,856/scaling,450/scaling,screen,&wall[16]);
+    createWall(2,0,0,244/scaling,900/scaling,450/scaling,screen,&wall[17]);
+    return wall;
+}
+
+WALL *MapExempleRapport1(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap){
+    numberWall = 1;
+    wall = malloc(numberWall*sizeof(WALL));
+
+    createWall(2, 1,  0.15, 700/scaling,   300/scaling,           0, screen, &wall[0]);
+
+    return wall;
+}
+
+WALL *MapExempleRapport2(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap){
+    numberWall = 3;
+    wall = malloc(numberWall*sizeof(WALL));
+
+    createWall(3, 0,  0.2, 1400/scaling,   0/scaling,           0, screen, &wall[0]);
+    createWall(3, 0,  0.2, 1400/scaling,   0/scaling, 500/scaling, screen, &wall[1]);
+
+    createWall(2, 1, 0.15,  500/scaling, 600/scaling,           0, screen, &wall[2]);
+
     return wall;
 }
 

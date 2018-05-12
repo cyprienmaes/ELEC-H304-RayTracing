@@ -20,10 +20,10 @@ POINT *transList(int compte, POINT transmis, POINT *listeAvant, POINT *listeApre
 
 POINT *transTrie(int compte, POINT avant, POINT *liste);
 
-void changeCouleur(int changement,Uint8*r,Uint8*v,Uint8*b);
+Uint32 changeCouleur(int changement,int nbTrans,SDL_Surface *screen);
 
-void transLigne(int compte, int colorChange, POINT avant, POINT apres, POINT *listeTransmission, Uint8*r, Uint8*v, Uint8*b, SDL_Surface *screen);
+int transLigne(int compte, int colorChange, int nbTransGlobal, POINT avant, POINT apres, POINT *listeTransmission, SDL_Surface *screen);
 
-void transmission(int colorChange, POINT avant, POINT apres, char *rouge,char *vert,char *bleu, WALL *wall, SDL_Surface *screen);
+int transmission(int colorChange, int nbTransGlobal, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen);
 
 #endif // TRANSMISSION_H_INCLUDED

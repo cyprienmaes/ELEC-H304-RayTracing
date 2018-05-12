@@ -34,11 +34,18 @@ void createWall(char type, char vertical, float epaisseur, float longueur, int p
 
 WALL *DeuxMurs(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
 
+WALL *UnMur(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+
 WALL *TroisMur(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
 
 WALL *SquareMap(SDL_Surface *screen, WALL *wall, int largeurEcran, int hauteurEcran);
 
 WALL *MapUn(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+
+WALL *MapDeux(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+
+WALL *MapExempleRapport(SDL_Surface *screen, WALL *wall, int largeurMap, int hauteurMap);
+
 
 void freeWALL(WALL *wall);
 

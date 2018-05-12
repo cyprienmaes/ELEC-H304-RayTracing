@@ -18,15 +18,13 @@
 #include "transmission.h"
 
 int main(int argc, char *argv[]) {
-    int hauteurEcran = 800; // en cm
-    int largeurEcran = 1120; // en cm
+    int hauteurEcran = 700; // en cm
+    int largeurEcran = 1400; // en cm
     int hauteurMenu = 100;
-    int largeurMenu = 1120;
+    int largeurMenu = 1400;
 
     WALL* wall = NULL;
     TRANSMITTER *transmitter = NULL;
-    float puissance = 20; // puissance à l'emetteur (en dBm)
-    float frequence = 2.45*pow(10,9); //2.45 GHz
     RECEIVER *receiver = NULL;
     printf("Emetteur en rose\n");
     printf("Recepteur en jaune\n");
@@ -61,12 +59,12 @@ int main(int argc, char *argv[]) {
     // Title of the main frame
     SDL_WM_SetCaption("Projet de Ray-Tracing v0.1.0", NULL);
     // Creation de la map
-    wall = MapUn(screen, wall, largeurEcran, hauteurEcran);
+    wall = MapExempleRapport1(screen, wall, largeurEcran, hauteurEcran);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(round(50/scaling),round(700/scaling),10,10, puissance, frequence, transmitter,screen);
-    receiver = newReceiver(round(900/scaling), round(50/scaling), 10,10, receiver, screen);
-    reflexion(receiver,transmitter,wall,screen);
-    //emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
+    transmitter = newTransmitter(round(100/scaling),round(300/scaling), 10,10, transmitter,screen);
+    receiver = newReceiver(round(500/scaling), round(300/scaling), 10,10, receiver, screen);
+    onde(receiver,transmitter,wall,screen);
+    // emission(transmitter->position.x+5, transmitter->position.y+5, wall, screen);
     // Creation d'un menu ou s'affiche certaines donnees
     createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,screen);
     SDL_Flip(screen);
