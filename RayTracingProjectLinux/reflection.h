@@ -16,10 +16,10 @@
 #define REFLECTION_H_INCLUDED
 
 double coeffRef(POINT avant, POINT inter, WALL wall);
-POINT *premiereImage(TRANSMITTER *transmitter,WALL *wall, POINT *listeDePoints);
 double troisReflexion(float echelle, POINT lePoint1, POINT lePoint2, int murNonConsiderer1, int murNonConsiderer2, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
-double deuxReflexion(float echelle, POINT lePoint, int murNonConsiderer, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
-double reflexion(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
-double onde(float echelle, RECEIVER *receiver, TRANSMITTER *transmitter, WALL *wall, SDL_Surface *screen);
+double deuxReflexion(float echelle, POINT lePoint, int murNonConsiderer, RECEIVER receiver, TRANSMITTER transmitter, WALL *wall, SDL_Surface *screen);
+POINT *premiereImage(TRANSMITTER transmitter,WALL *wall, POINT *listeDePoints);
+double reflexion(float echelle, RECEIVER receiver, TRANSMITTER transmitter, WALL *wall, SDL_Surface *screen);
+double onde(float echelle, RECEIVER receiver, TRANSMITTER transmitter, WALL *wall, SDL_Surface *screen);
 
 #endif // REFLECTION_H_INCLUDED

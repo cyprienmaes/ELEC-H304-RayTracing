@@ -172,6 +172,27 @@ WALL *MapDeux(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen
     return wall;
 }
 
+WALL *MapExempleRapport1(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall){
+    numberWall = 1;
+    wall = malloc(numberWall*sizeof(WALL));
+
+    createWall(echelle, 2, 1,  0.15, 700,   300,           0, screen, &wall[0]);
+
+    return wall;
+}
+
+WALL *MapExempleRapport2(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall){
+    numberWall = 3;
+    wall = malloc(numberWall*sizeof(WALL));
+
+    createWall(echelle, 3, 0,  0.2, 1400,   0,   0, screen, &wall[0]);
+    createWall(echelle, 3, 0,  0.2, 1400,   0, 500, screen, &wall[1]);
+
+    createWall(echelle, 2, 1, 0.15,  500, 600,   0, screen, &wall[2]);
+
+    return wall;
+}
+
 
 void freeWALL(WALL *wall) {
     int i = 0;

@@ -43,6 +43,10 @@ WALL *MapUn(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, 
 
 WALL *MapDeux(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
 
+WALL *MapExempleRapport1(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
+
+WALL *MapExempleRapport2(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen, WALL *wall);
+
 void freeWALL(WALL *wall);
 
 

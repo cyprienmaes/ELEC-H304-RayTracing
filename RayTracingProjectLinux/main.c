@@ -24,10 +24,18 @@ int main(int argc, char *argv[]) {
     int hauteurMenu = 100;
     int largeurMenu = 1400;
 
-    double sum = 0;
+    double sum;
+    double Prx;
+    float debit;
 
+    double puissance = 20; // puissance à l'emetteur (en dBm)
+    double frequence = 2.45*pow(10,9); //2.45 GHz
+
+    // Tableau dynamique de wall
     WALL* wall = NULL;
-    TRANSMITTER *transmitter = NULL;
+    // Tableau dynamique ou non d'emmeteur
+    TRANSMITTER transmitter;
+    // Tableau dynamique ou non de recepteur
     RECEIVER *receiver = NULL;
     printf("Emetteur en rose\n");
     printf("Recepteur en jaune\n");
@@ -60,20 +68,18 @@ int main(int argc, char *argv[]) {
     // Filling of the rectangle
     SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
     // Title of the main frame
-    SDL_WM_SetCaption("Projet de Ray-Tracing v1.4.0", NULL);
+    SDL_WM_SetCaption("Projet de Ray-Tracing v1.4.2", NULL);
     // Creation de la map
     wall = MapDeux(largeurEcran, hauteurEcran, echelle, screen, wall);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(echelle,1200,600,20,20, transmitter,screen);
-    receiver = newReceiver(echelle,1,100,200,20,20,receiver,screen);
-    sum = onde(echelle,receiver,transmitter,wall,screen);
-    printf("La somme au carre est donc : %.12f\n", sum);
-    /*
-    receiver = zoneReception(echelle,200, 100,receiver, screen);
-    for (int i=0;i<121;i++) {
-        sum = onde(echelle,&receiver[i],transmitter,wall,screen);
-        printf("La somme au carre est donc : %.12f\n", sum);
-    }*/
+    transmitter = newTransmitter(echelle, 1200, 650, 20, 20, puissance, frequence, 255,255,255,screen);
+    receiver = Mapping(echelle,largeurEcran,hauteurEcran,5,transmitter,receiver);
+    for (int i = 0; i<(largeurEcran/5)*(hauteurEcran/5); i++){
+        sum = onde(echelle,receiver[i],transmitter,wall,screen);
+        Prx = calcul_Prx(receiver[i],transmitter,sum);
+        debit = Bps(Prx);
+        dessinReceiver(echelle,debit,receiver[i],screen);
+    }
     SDL_Flip(screen);
     // Creation d'un menu ou s'affiche certaines donnees
     createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);
