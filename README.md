@@ -11,4 +11,5 @@ Et pour finir, il faut installer SDL_ttf de la manière suivante :
 -Ouvrer le VC.zip et Rajouter SDL_ttf dans le dossier susmentionne
 Les fichiers DLL sont deja mis dans le projet.
 
+Pour executer le code : RayTracingProjectWindows\bin\debug\RayTracingProjectWindows.exe
 
