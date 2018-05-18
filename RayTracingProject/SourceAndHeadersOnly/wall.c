@@ -113,10 +113,10 @@ WALL *SquareMap(int largeurMap, int hauteurMap, float echelle, SDL_Surface *scre
     if (wall == NULL) exit(0);
     int i = 0;
     for(i=0;i<=1;i++){
-        createWall(echelle,1,0,0,largeurMap,0,i*hauteurMap,screen,&wall[i]);
+        createWall(echelle,3,0,0,largeurMap,0,i*hauteurMap,screen,&wall[i]);
     }
     for(i=0;i<=1;i++) {
-        createWall(echelle,2,1,0,hauteurMap,i*largeurMap,0,screen,&wall[i+2]);
+        createWall(echelle,3,1,0,hauteurMap,i*largeurMap,0,screen,&wall[i+2]);
     }
     return wall;
 }
@@ -156,16 +156,16 @@ WALL *MapDeux(int largeurMap, int hauteurMap, float echelle, SDL_Surface *screen
     createWall(echelle,3,1,19e-2,325,0,0,screen,&wall[3]);
     createWall(echelle,3,1,19e-2,hauteurMap-425,0,425,screen,&wall[4]);
     // Les murs interieurs sont presque tous en cloisons
-    createWall(echelle,2,0,13e-2,175,0,300,screen,&wall[5]);
-    createWall(echelle,2,0,13e-2,175,275,300,screen,&wall[6]);
-    createWall(echelle,2,1,15e-2,300,450,0,screen,&wall[7]);
-    createWall(echelle,2,0,13e-2,75,450,200,screen,&wall[8]);
-    createWall(echelle,2,0,13e-2,100,625,200,screen,&wall[9]);
-    createWall(echelle,2,1,15e-2,200,700,0,screen,&wall[10]);
-    createWall(echelle,2,0,13e-2,24,825,200,screen,&wall[11]);
-    createWall(echelle,2,1,15e-2,300,850,0,screen,&wall[12]);
-    createWall(echelle,2,0,13e-2,100,850,300,screen,&wall[13]);
-    createWall(echelle,2,0,13e-2,350,1050,300,screen,&wall[14]);
+    createWall(echelle,2,0,5e-2,175,0,300,screen,&wall[5]);
+    createWall(echelle,2,0,6e-2,175,275,300,screen,&wall[6]);
+    createWall(echelle,2,1,5e-2,300,450,0,screen,&wall[7]);
+    createWall(echelle,2,0,5e-2,75,450,200,screen,&wall[8]);
+    createWall(echelle,2,0,5e-2,100,625,200,screen,&wall[9]);
+    createWall(echelle,2,1,6e-2,200,700,0,screen,&wall[10]);
+    createWall(echelle,2,0,5e-2,24,825,200,screen,&wall[11]);
+    createWall(echelle,2,1,6e-2,300,850,0,screen,&wall[12]);
+    createWall(echelle,2,0,5e-2,100,850,300,screen,&wall[13]);
+    createWall(echelle,2,0,5e-2,350,1050,300,screen,&wall[14]);
     // mur en brique
     createWall(echelle,1,0,20e-2,750,0,450,screen,&wall[15]);
     createWall(echelle,1,1,20e-2,250,850,450,screen,&wall[16]);
@@ -176,7 +176,7 @@ WALL *MapExempleRapport1(int largeurMap, int hauteurMap, float echelle, SDL_Surf
     numberWall = 1;
     wall = malloc(numberWall*sizeof(WALL));
 
-    createWall(echelle, 2, 1,  0.15, 700,   300,           0, screen, &wall[0]);
+    createWall(echelle, 2, 1,  0.15, 700,300,0, screen, &wall[0]);
 
     return wall;
 }

@@ -45,49 +45,53 @@
 			<Add library="dxguid" />
 			<Add directory="C:/Program Files (x86)/CodeBlocks/SDL-1.2.15/lib" />
 		</Linker>
-		<Unit filename="TXandRX.c">
+		<Unit filename="SourcesAndHeaders/TXandRX.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="TXandRX.h" />
-		<Unit filename="droite.c">
+		<Unit filename="SourcesAndHeaders/TXandRX.h" />
+		<Unit filename="SourcesAndHeaders/coefficients.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="droite.h" />
-		<Unit filename="evenement.c">
+		<Unit filename="SourcesAndHeaders/coefficients.h" />
+		<Unit filename="SourcesAndHeaders/droite.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="evenement.h" />
-		<Unit filename="intersection.c">
+		<Unit filename="SourcesAndHeaders/droite.h" />
+		<Unit filename="SourcesAndHeaders/evenement.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="intersection.h" />
-		<Unit filename="line.c">
+		<Unit filename="SourcesAndHeaders/evenement.h" />
+		<Unit filename="SourcesAndHeaders/intersection.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="line.h" />
-		<Unit filename="main.c">
+		<Unit filename="SourcesAndHeaders/intersection.h" />
+		<Unit filename="SourcesAndHeaders/line.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="menu.c">
+		<Unit filename="SourcesAndHeaders/line.h" />
+		<Unit filename="SourcesAndHeaders/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="menu.h" />
-		<Unit filename="point.c">
+		<Unit filename="SourcesAndHeaders/menu.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="point.h" />
-		<Unit filename="reflection.c">
+		<Unit filename="SourcesAndHeaders/menu.h" />
+		<Unit filename="SourcesAndHeaders/point.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="reflection.h" />
-		<Unit filename="transmission.c">
+		<Unit filename="SourcesAndHeaders/point.h" />
+		<Unit filename="SourcesAndHeaders/reflection.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="transmission.h" />
-		<Unit filename="wall.c">
+		<Unit filename="SourcesAndHeaders/reflection.h" />
+		<Unit filename="SourcesAndHeaders/transmission.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="wall.h" />
+		<Unit filename="SourcesAndHeaders/transmission.h" />
+		<Unit filename="SourcesAndHeaders/wall.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="SourcesAndHeaders/wall.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

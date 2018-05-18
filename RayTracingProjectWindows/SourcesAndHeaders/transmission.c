@@ -10,6 +10,7 @@
 #include "intersection.h"
 #include "TXandRX.h"
 #include "droite.h"
+#include "coefficients.h"
 
 char transExiste(POINT avant, POINT apres, POINT transmission, WALL *wall){
 /*
@@ -19,7 +20,7 @@ Fonction qui verifie que le point de transmission existe au sein du plan et qu'i
     // On regarde si le point transmis se trouve bien dans les limites du plans
     // On doit faire -4 pour un mur etant au mimite du plan, car le seul point admis est sur la tranche de gauche ou du dessus.
     if(wall->vertical == 1){
-        if (transmission.y < wall->position.y || transmission.y > wall->position.y + wall->longueur) {
+        if (transmission.y < wall->posReeleY || transmission.y > wall->posReeleY + wall->longueur) {
             existe = 0;
         }
         else {
@@ -28,7 +29,7 @@ Fonction qui verifie que le point de transmission existe au sein du plan et qu'i
         }
     }
     else{
-        if (transmission.x < wall->position.x || transmission.x > wall->position.x + wall->longueur) {
+        if (transmission.x < wall->posReeleX || transmission.x > wall->posReeleX + wall->longueur) {
             existe = 0;
         }
         else {
@@ -73,13 +74,22 @@ Fonction qui trie les points en fonction de la distance par rapport au point ava
     return liste;
 }
 
-void transmission(int INC1, int INC2, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen){
+double coeffTrans(POINT avant, POINT transmis, WALL wall) {
+    double theta;
+    double coeff;
+    theta = theta_i(avant.x,avant.y,transmis.x,transmis.y, wall.vertical);
+    coeff = norme_coeff_transmission(theta, wall.permitivity, wall.conductivity, wall.epaisseur);
+    return coeff;
+}
+
+double transmission(int INC1, int INC2, POINT avant, POINT apres, WALL *wall, SDL_Surface *screen){
 /*
 Fonction qui calcul tous les points de transmissions entre deux points. Ces points sont tries suivant la
 plus courte distance du point avant. INC sont les indices des murs qu'on ne considerent pas, ceux lies aux
 points avant et apres.
 */
     int i = 0;
+    double coefficient = 1;
     POINT transmis; // Variable contenant le point de transmission
     // Creation de deux tableaux dynamiques et d'une variable de comptage :
     POINT *transmission1 = NULL;
@@ -96,6 +106,8 @@ points avant et apres.
             // On test si le point de transmission existe par rapport au longeur du mur et a la fenetre.
             if(transExiste(avant,apres,transmis,&wall[i]) == 1){
                 if (transmission1 == NULL) {
+                    // calcul du coefficient general apres toutes les transmissions deja comptabilisees.
+                    coefficient *= coeffTrans(avant,transmis,wall[i]);
                     // On liste un pointeur et puis l'autre. On calcul donc tous les points d'intersections
                     // sur une ligne
                     transmission1 = transList(compte,transmis,transmission2,transmission1);
@@ -105,6 +117,7 @@ points avant et apres.
                     transmission2 = NULL;
                 }
                 else if(transmission2 == NULL && compte > 0){
+                    coefficient *= coeffTrans(avant,transmis,wall[i]);
                     transmission2 = transList(compte,transmis,transmission1,transmission2);
                     free(transmission1);
                     transmission1 = NULL;
@@ -122,4 +135,5 @@ points avant et apres.
     else if(transmission2 == NULL && transmission1 != NULL){
         transmission1 = transTrie(compte,avant,transmission1);
     }
+    return coefficient;
 }

@@ -197,7 +197,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1524930210 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\evenement.c
+1526244869 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\evenement.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -207,7 +207,7 @@
 	<SDL/SDL_ttf.h>
 	"menu.h"
 
-1526043494 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\menu.h
+1526504688 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\menu.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -234,7 +234,7 @@
 	<SDL/SDL.h>
 	"wall.h"
 
-1526114366 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\wall.h
+1526244869 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\wall.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -259,7 +259,7 @@
 	<math.h>
 	<SDL/SDL.h>
 
-1526054613 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\menu.c
+1526505393 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\menu.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -278,7 +278,7 @@
 	<SDL/SDL.h>
 	"wall.h"
 
-1526121117 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\reflection.c
+1526507139 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\reflection.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -292,8 +292,9 @@
 	"TXandRX.h"
 	"droite.h"
 	"transmission.h"
+	"coefficients.h"
 
-1524930210 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\line.h
+1526244869 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\line.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -310,7 +311,7 @@
 	<SDL/SDL.h>
 	"point.h"
 
-1526064001 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\txandrx.h
+1526244869 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\txandrx.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -318,8 +319,9 @@
 	<math.h>
 	<SDL/SDL.h>
 	"point.h"
+	"wall.h"
 
-1526058178 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\transmission.h
+1526244869 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\transmission.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -332,8 +334,9 @@
 	"intersection.h"
 	"TXandRX.h"
 	"droite.h"
+	"coefficients.h"
 
-1526058124 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\transmission.c
+1526244869 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\transmission.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -346,8 +349,9 @@
 	"intersection.h"
 	"TXandRX.h"
 	"droite.h"
+	"coefficients.h"
 
-1526064205 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\txandrx.c
+1526598601 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\txandrx.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -355,8 +359,9 @@
 	<math.h>
 	<SDL/SDL.h>
 	"point.h"
+	"wall.h"
 
-1526115551 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\wall.c
+1526506732 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\wall.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -365,7 +370,7 @@
 	<SDL/SDL.h>
 	"droite.h"
 
-1526116506 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\main.c
+1526598584 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -385,7 +390,7 @@
 	"droite.h"
 	"transmission.h"
 
-1525876430 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\coefficients.h
+1526244869 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\coefficients.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -395,7 +400,7 @@
 	<complex.h>
 	"point.h"
 
-1526120740 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\reflection.h
+1526244869 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\reflection.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -408,8 +413,9 @@
 	"TXandRX.h"
 	"droite.h"
 	"transmission.h"
+	"coefficients.h"
 
-1524930210 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\evenement.h
+1526244869 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\evenement.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -417,4 +423,275 @@
 	<math.h>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
+
+1526244869 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\coefficients.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	<complex.h>
+	"point.h"
+
+1525876430 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\source\droite.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+
+1524930210 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\source\line.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+
+1526641693 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\coefficients.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	<complex.h>
+	"point.h"
+
+1526642182 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\point.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"wall.h"
+
+1526642235 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\wall.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"droite.h"
+
+1525876430 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\droite.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+
+1525876430 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\droite.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+
+1526641685 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\evenement.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+	"menu.h"
+
+1526504688 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\menu.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+
+1526642045 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\intersection.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"point.h"
+
+1524930210 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\line.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+
+1526642065 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+	"coefficients.h"
+	"wall.h"
+	"line.h"
+	"reflection.h"
+	"TXandRX.h"
+	"point.h"
+	"menu.h"
+	"evenement.h"
+	"intersection.h"
+	"droite.h"
+	"transmission.h"
+
+1526642156 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\coefficients.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	<complex.h>
+	"point.h"
+
+1526244869 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\line.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+
+1526642199 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\reflection.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"point.h"
+	"line.h"
+	"wall.h"
+	"TXandRX.h"
+	"droite.h"
+	"transmission.h"
+	"coefficients.h"
+
+1526642217 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\txandrx.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"point.h"
+	"wall.h"
+
+1526642238 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\transmission.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"line.h"
+	"wall.h"
+	"point.h"
+	"intersection.h"
+	"TXandRX.h"
+	"droite.h"
+	"coefficients.h"
+
+1526642169 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\intersection.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"point.h"
+
+1526244869 c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\evenement.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+
+1526642073 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\menu.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	<SDL/SDL_ttf.h>
+	"wall.h"
+
+1526642081 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\point.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"wall.h"
+
+1526642100 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\reflection.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"line.h"
+	"wall.h"
+	"point.h"
+	"intersection.h"
+	"TXandRX.h"
+	"droite.h"
+	"transmission.h"
+	"coefficients.h"
+
+1526642121 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\transmission.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"line.h"
+	"wall.h"
+	"point.h"
+	"intersection.h"
+	"TXandRX.h"
+	"droite.h"
+	"coefficients.h"
+
+1526642130 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\txandrx.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"point.h"
+	"wall.h"
+
+1526642143 source:c:\users\cypri\documents\github\raytracing\elec-h304-raytracing\raytracingprojectwindows\sourcesandheaders\wall.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<unistd.h>
+	<math.h>
+	<SDL/SDL.h>
+	"droite.h"
 

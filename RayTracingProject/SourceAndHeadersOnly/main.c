@@ -18,7 +18,7 @@
 #include "transmission.h"
 
 int main(int argc, char *argv[]) {
-    float echelle = 1.2;
+    float echelle = 1.5;
     int hauteurEcran = 700; // en cm
     int largeurEcran = 1400; // en cm
     int hauteurMenu = 100;
@@ -72,14 +72,32 @@ int main(int argc, char *argv[]) {
     // Creation de la map
     wall = MapDeux(largeurEcran, hauteurEcran, echelle, screen, wall);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(echelle, 1200, 650, 20, 20, puissance, frequence, 255,255,255,screen);
+    transmitter = newTransmitter(echelle, 1350, 650, 20, 20, puissance, frequence, 255,255,255,screen);
+    /*
+    // Dans ce cas-ci le récepteur est associé à un seul point sur l'ecran
+    receiver = newReceiver(echelle,1,100,100,20,20,transmitter);
+    sum = onde(echelle,receiver,transmitter,wall,screen);
+    Prx = calcul_Prx(receiver,transmitter,sum);
+    debit = Bps(Prx);
+    printf("Puissance en dbm : %f\n et puissance en Mbps : %f\n",Prx,debit);
+    dessinReceiver(echelle,debit,receiver,screen);*/
+    // Dans ce cas-ci unz zone de réception est créée de 1 metre carre
+    receiver = zoneDeReception(echelle,140,590,transmitter,receiver);
+    for (int i = 0; i<99; i++){
+        sum = onde(echelle,receiver[i],transmitter,wall,screen);
+        Prx = calcul_Prx(receiver[i],transmitter,sum);
+        debit = Bps(Prx);
+        dessinReceiver(echelle,debit,receiver[i],screen);
+    }
+    /*
+    // Dans ce cas-ci un mapping entier de la puissance est faite, Le processus prend un peu de temps
     receiver = Mapping(echelle,largeurEcran,hauteurEcran,5,transmitter,receiver);
     for (int i = 0; i<(largeurEcran/5)*(hauteurEcran/5); i++){
         sum = onde(echelle,receiver[i],transmitter,wall,screen);
         Prx = calcul_Prx(receiver[i],transmitter,sum);
         debit = Bps(Prx);
         dessinReceiver(echelle,debit,receiver[i],screen);
-    }
+    }*/
     SDL_Flip(screen);
     // Creation d'un menu ou s'affiche certaines donnees
     createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);

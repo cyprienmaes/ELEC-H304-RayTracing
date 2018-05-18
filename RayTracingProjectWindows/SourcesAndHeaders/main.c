@@ -18,14 +18,24 @@
 #include "transmission.h"
 
 int main(int argc, char *argv[]) {
-    float echelle = 1.7;
+    float echelle = 1.5;
     int hauteurEcran = 700; // en cm
     int largeurEcran = 1400; // en cm
     int hauteurMenu = 100;
     int largeurMenu = 1400;
 
+    double sum;
+    double Prx;
+    float debit;
+
+    double puissance = 20; // puissance à l'emetteur (en dBm)
+    double frequence = 2.45*pow(10,9); //2.45 GHz
+
+    // Tableau dynamique de wall
     WALL* wall = NULL;
-    TRANSMITTER *transmitter = NULL;
+    // Tableau dynamique ou non d'emmeteur
+    TRANSMITTER transmitter;
+    // Tableau dynamique ou non de recepteur
     RECEIVER *receiver = NULL;
     printf("Emetteur en rose\n");
     printf("Recepteur en jaune\n");
@@ -58,19 +68,42 @@ int main(int argc, char *argv[]) {
     // Filling of the rectangle
     SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
     // Title of the main frame
-    SDL_WM_SetCaption("Projet de Ray-Tracing v1.3.0", NULL);
+    SDL_WM_SetCaption("Projet de Ray-Tracing v1.4.2", NULL);
     // Creation de la map
     wall = MapDeux(largeurEcran, hauteurEcran, echelle, screen, wall);
     // Creation de l'emetteur et du recepteur.
-    transmitter = newTransmitter(echelle,1300,650,20,20, transmitter,screen);
-    receiver = newReceiver(echelle,200, 250, 20,20, receiver, screen);
-    onde(echelle,receiver,transmitter,wall,screen);
+    transmitter = newTransmitter(echelle, 1350, 650, 20, 20, puissance, frequence, 255,255,255,screen);
+    /*
+    // Dans ce cas-ci le récepteur est associé à un seul point sur l'ecran
+    receiver = newReceiver(echelle,1,100,100,20,20,transmitter);
+    sum = onde(echelle,receiver,transmitter,wall,screen);
+    Prx = calcul_Prx(receiver,transmitter,sum);
+    debit = Bps(Prx);
+    printf("Puissance en dbm : %f\n et puissance en Mbps : %f\n",Prx,debit);
+    dessinReceiver(echelle,debit,receiver,screen);*/
+    // Dans ce cas-ci unz zone de réception est créée de 1 metre carre
+    receiver = zoneDeReception(echelle,140,590,transmitter,receiver);
+    for (int i = 0; i<99; i++){
+        sum = onde(echelle,receiver[i],transmitter,wall,screen);
+        Prx = calcul_Prx(receiver[i],transmitter,sum);
+        debit = Bps(Prx);
+        dessinReceiver(echelle,debit,receiver[i],screen);
+    }
+    /*
+    // Dans ce cas-ci un mapping entier de la puissance est faite, Le processus prend un peu de temps
+    receiver = Mapping(echelle,largeurEcran,hauteurEcran,5,transmitter,receiver);
+    for (int i = 0; i<(largeurEcran/5)*(hauteurEcran/5); i++){
+        sum = onde(echelle,receiver[i],transmitter,wall,screen);
+        Prx = calcul_Prx(receiver[i],transmitter,sum);
+        debit = Bps(Prx);
+        dessinReceiver(echelle,debit,receiver[i],screen);
+    }*/
     SDL_Flip(screen);
     // Creation d'un menu ou s'affiche certaines donnees
-    // createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);
+    createMenu("GeosansLight.ttf",16,largeurMenu,hauteurMenu,hauteurEcran,echelle,screen);
     SDL_Flip(screen);
     // Gestion d'evenement avec la souris.
-    posSouris("GeosansLight.ttf",16,round(largeurMenu/2)-50, hauteurEcran+round(hauteurMenu/2)-10, round(largeurMenu/2)+round(300/echelle), hauteurEcran+round(hauteurMenu/2)-10,screen);
+    posSouris(echelle, largeurEcran, hauteurEcran, "GeosansLight.ttf",16,largeurMenu/(2*echelle)-50, hauteurEcran/echelle+4+hauteurMenu/2-10, largeurMenu/(2*echelle)+300/echelle, hauteurEcran/echelle+4+hauteurMenu/2-10,screen);
     // Deleting surface inside de memory
     freeWALL(wall);
     SDL_Flip(screen);
